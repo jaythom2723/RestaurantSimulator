@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RestaurantSimulator" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/RestaurantSimulator" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/RestaurantSimulator" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="C:/Program Files/SDL2-2.32.4/x86_64-w64-mingw32/include" />
+			<Add directory="E:/Programming/C++/RestaurantSimulator/include/engine" />
+			<Add directory="E:/Programming/C++/RestaurantSimulator/include/engine/res" />
+			<Add directory="E:/Programming/C++/RestaurantSimulator/include/engine/components" />
+			<Add directory="E:/Programming/C++/RestaurantSimulator/include/game" />
+		</Compiler>
+		<Linker>
+			<Add library="mingw32" />
+			<Add library="SDL2main" />
+			<Add library="SDL2.dll" />
+			<Add library="user32" />
+			<Add library="gdi32" />
+			<Add library="winmm" />
+			<Add library="dxguid" />
+			<Add directory="C:/Program Files/SDL2-2.32.4/x86_64-w64-mingw32/lib" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
+		</ExtraCommands>
+		<Unit filename="include/engine/aStar.h" />
+		<Unit filename="include/engine/components/transform.h" />
+		<Unit filename="include/engine/dbg.h" />
+		<Unit filename="include/engine/display.h" />
+		<Unit filename="include/engine/entity.h" />
+		<Unit filename="include/engine/renderer.h" />
+		<Unit filename="include/engine/res/texture.h" />
+		<Unit filename="include/game/employee.h" />
+		<Unit filename="include/game/player.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="res/employee.bmp" />
+		<Unit filename="res/test.bmp" />
+		<Unit filename="src/engine/aStar.cpp" />
+		<Unit filename="src/engine/dbg.cpp" />
+		<Unit filename="src/engine/display.cpp" />
+		<Unit filename="src/engine/entity.cpp" />
+		<Unit filename="src/engine/renderer.cpp" />
+		<Unit filename="src/engine/res/texture.cpp" />
+		<Unit filename="src/game/employee.cpp" />
+		<Unit filename="src/game/player.cpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
