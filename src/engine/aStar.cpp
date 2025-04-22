@@ -17,57 +17,57 @@ bool isUnblocked(int grid[][COL], int row, int col)
     return grid[row][col] == 1;
 }
 
-bool isDestination(int row, int col, pair<int,int> dest)
+bool isDestination(int row, int col, navPoint dest)
 {
-    return (row == dest.first && col == dest.second);
+    return (row == dest.x && col == dest.y);
 }
 
 
 
-double calculateHValue(int row, int col, pair<int,int> dest)
+double calculateHValue(int row, int col, navPoint dest)
 {
     return (
         (double) sqrt(
-            (row - dest.first) * (row - dest.first)
-            + (col - dest.second) * (col - dest.second)
+            (row - dest.x) * (row - dest.y)
+            + (col - dest.x) * (col - dest.y)
         )
     );
 }
 
-stack<pair<int,int>> tracePath(cell cellDetails[][COL], pair<int,int> dest)
+stack<navPoint> tracePath(cell cellDetails[][COL], navPoint dest)
 {
-    stack<pair<int,int>> path;
+    stack<navPoint> path;
     int row, col;
 
-    row = dest.first;
-    col = dest.second;
+    row = dest.x;
+    col = dest.y;
 
     while(!(cellDetails[row][col].parent_i == row
             && cellDetails[row][col].parent_j == col))
     {
-        path.push(make_pair(row, col));
+        path.push((navPoint){row,col});
         int temp_row = cellDetails[row][col].parent_i;
         int temp_col = cellDetails[row][col].parent_j;
         row = temp_row;
         col = temp_col;
     }
 
-    path.push(make_pair(row, col));
+    path.push((navPoint){row,col});
     return path;
 }
 
-void aStarSearch(int grid[][COL], pair<int,int> src, pair<int,int> dest, stack<pair<int,int>> *path)
+void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *path)
 {
-    if (!isValid(src.first, src.second))
+    if (!isValid(src.x, src.y))
         return;
 
-    if (!isValid(dest.first, dest.second))
+    if (!isValid(dest.x, dest.y))
         return;
 
-    if (!isUnblocked(grid, src.first, src.second) || !isUnblocked(grid, dest.first, dest.second))
+    if (!isUnblocked(grid, src.x, src.y) || !isUnblocked(grid, dest.x, dest.y))
         return;
 
-    if (isDestination(src.first, src.second, dest))
+    if (isDestination(src.x, src.y, dest))
         return;
 
     bool closedList[ROW][COL];
@@ -88,7 +88,7 @@ void aStarSearch(int grid[][COL], pair<int,int> src, pair<int,int> dest, stack<p
         }
     }
 
-    i = src.first, j = src.second;
+    i = src.x, j = src.y;
     cellDetails[i][j].f = 0.0;
     cellDetails[i][j].g = 0.0;
     cellDetails[i][j].h = 0.0;
@@ -400,20 +400,19 @@ void aStarTest(Renderer& r)
             { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
             { 1, 1, 1, 0, 0, 0, 1, 0, 0, 1 } };
 
-    pair<int,int> src = make_pair(8,0);
-    pair<int,int> dest = make_pair(0,0);
-    stack<pair<int,int>> path;
-    int i;
+    navPoint src  = { 8, 0 };
+    navPoint dest = { 0, 0 };
+    stack<navPoint> path;
 
     aStarSearch(grid, src, dest, &path);
 
-    pair<int,int> lastPoint, curPoint;
+    navPoint lastPoint, curPoint;
     while(!path.empty())
     {
         lastPoint = curPoint;
         curPoint = path.top();
         path.pop();
         SDL_SetRenderDrawColor(r.getHandle(), 0xFF, 0xFF, 0xFF, 0xFF);
-        SDL_RenderDrawPoint(r.getHandle(), curPoint.first * 32, curPoint.second * 32);
+        SDL_RenderDrawPoint(r.getHandle(), curPoint.x * 32, curPoint.y * 32);
     }
 }
