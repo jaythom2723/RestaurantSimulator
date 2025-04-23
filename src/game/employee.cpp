@@ -20,15 +20,16 @@ Employee::~Employee()
     delete texture;
 }
 
-void Employee::update(float deltaTime)
+void Employee::update(double deltaTime)
 {
     if (!path.empty() && !shouldMove)
     {
         curWaypoint = path.top();
         shouldMove = true;
+        std::printf("New waypoint!\n(%d, %d)\n", curWaypoint.x, curWaypoint.y);
     }
 
-    while (shouldMove && !path.empty())
+    if (shouldMove && !path.empty())
     {
         int scaledX, scaledY;
         float angle, dist;
@@ -39,8 +40,8 @@ void Employee::update(float deltaTime)
         angle = std::atan2(scaledY - y, scaledX - x);
         dist = std::sqrt(std::pow(scaledX - x, 2) + std::pow(scaledY - y, 2));
 
-        x += std::cos(angle) * speed * deltaTime;
-        y += std::sin(angle) * speed * deltaTime;
+        x += (std::cos(angle) * speed) * deltaTime;
+        y += (std::sin(angle) * speed) * deltaTime;
 
         if (dist <= 10)
         {

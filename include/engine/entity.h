@@ -13,7 +13,7 @@ public:
     Entity(int x, int y, int w, int h);
     virtual ~Entity() {}
 
-    virtual void update(float deltaTime) {}
+    virtual void update(double deltaTime) {}
     virtual void draw(Renderer& r) {}
 
     void setX(int x);

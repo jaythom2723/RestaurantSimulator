@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745326200 source:e:\programming\c++\restaurantsimulator\main.cpp
+1745382341 source:e:\programming\c++\restaurantsimulator\main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	"dbg.h"
@@ -453,49 +453,48 @@
 	"begin_code.h"
 	"close_code.h"
 
-1745138099 source:e:\programming\c++\restaurantsimulator\src\engine\dbg.cpp
+1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\dbg.cpp
 	"dbg.h"
 	<SDL2/SDL.h>
 	<string>
 
-1745137837 e:\programming\c++\restaurantsimulator\include\engine\dbg.h
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\dbg.h
 
-1745138120 source:e:\programming\c++\restaurantsimulator\src\engine\display.cpp
+1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\display.cpp
 	"display.h"
 	"dbg.h"
 	<cstdlib>
 
-1745136497 e:\programming\c++\restaurantsimulator\include\engine\display.h
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\display.h
 	<string>
 	<SDL2/SDL.h>
 
-1745182334 source:e:\programming\c++\restaurantsimulator\src\engine\renderer.cpp
+1745382237 source:e:\programming\c++\restaurantsimulator\src\engine\renderer.cpp
 	"renderer.h"
 	"dbg.h"
 	<cstdlib>
 
-1745182305 e:\programming\c++\restaurantsimulator\include\engine\renderer.h
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\renderer.h
 	<SDL2/SDL.h>
 	<cstdint>
 
-1745138631 e:\programming\c++\restaurantsimulator\include\engine\res\texture.h
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\res\texture.h
 	"renderer.h"
 	<SDL2/SDL.h>
 	<string>
 
-1745181891 source:e:\programming\c++\restaurantsimulator\src\engine\res\texture.cpp
+1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\res\texture.cpp
 	"texture.h"
 	"dbg.h"
 
-1745139621 source:e:\programming\c++\restaurantsimulator\src\engine\entity.cpp
+1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\entity.cpp
 	"entity.h"
 
-1745181241 e:\programming\c++\restaurantsimulator\include\engine\entity.h
-	"transform.h"
+1745381968 e:\programming\c++\restaurantsimulator\include\engine\entity.h
 	"display.h"
 	"renderer.h"
 
-1745139075 e:\programming\c++\restaurantsimulator\include\engine\components\transform.h
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\components\transform.h
 
 1745182275 source:e:\programming\c++\restaurantsimulator\src\game\player.cpp
 	"player.h"
@@ -506,15 +505,18 @@
 	"renderer.h"
 	"entity.h"
 
-1745189855 e:\programming\c++\restaurantsimulator\include\game\employee.h
+1745382312 e:\programming\c++\restaurantsimulator\include\game\employee.h
 	"renderer.h"
 	"entity.h"
 	"texture.h"
+	"navmesh.h"
+	<stack>
 
-1745189924 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
+1745382145 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
 	"employee.h"
 	"dbg.h"
 	<SDL2/SDL.h>
+	<cmath>
 
 1745325066 source:e:\programming\c++\restaurantsimulator\src\engine\astar.cpp
 	"aStar.h"
@@ -1071,4 +1073,22 @@
 	"navmesh.h"
 
 1745357699 c:\users\pengu\onedrive\desktop\restaurantsimulator\include\engine\nav\navmesh.h
+
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\nav\navmesh.h
+
+1745381114 e:\programming\c++\restaurantsimulator\include\engine\nav\astar.h
+	<bits/stdc++.h>
+	<stack>
+	"renderer.h"
+	"navmesh.h"
+
+1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\nav\astar.cpp
+	"aStar.h"
+	<set>
+	<stack>
+	<iostream>
+	<cmath>
+
+1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
+	"navmesh.h"
 

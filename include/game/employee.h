@@ -13,7 +13,7 @@ class Employee : public Entity
 private:
     int id;
     std::stack<navPoint> path;
-    float speed = 150.0f;
+    float speed = 150;
     navPoint curWaypoint;
     bool shouldMove;
 
@@ -24,7 +24,7 @@ public:
     Employee(Renderer& r, int id, int x, int y);
     ~Employee();
 
-    void update(float deltaTime);
+    void update(double deltaTime);
     void draw(Renderer& r);
 
     int getId();

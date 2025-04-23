@@ -8,7 +8,7 @@ using namespace resimdbg;
 
 Renderer::Renderer(SDL_Window *hdl)
 {
-    this->handle = SDL_CreateRenderer(hdl, -1, 0);
+    this->handle = SDL_CreateRenderer(hdl, -1, SDL_RENDERER_ACCELERATED);
     if(pushErrorCheck(ERRTYPE_FAIL_CREATE_RND, handle == nullptr))
         std::exit(-2);
 }
