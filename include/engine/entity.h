@@ -1,15 +1,13 @@
 #ifndef ENTITY_H_INCLUDED
 #define ENTITY_H_INCLUDED
 
-#include "transform.h"
-
 #include "display.h"
 #include "renderer.h"
 
 class Entity
 {
 protected:
-    TransformComponent tform;
+    int x, y, width, height;
 
 public:
     Entity(int x, int y, int w, int h);
@@ -18,7 +16,15 @@ public:
     virtual void update(float deltaTime) {}
     virtual void draw(Renderer& r) {}
 
-    TransformComponent &getTransform();
+    void setX(int x);
+    void setY(int y);
+    void setWidth(int width);
+    void setHeight(int height);
+
+    int getX();
+    int getY();
+    int getWidth();
+    int getHeight();
 };
 
 #endif // ENTITY_H_INCLUDED

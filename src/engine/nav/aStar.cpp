@@ -9,12 +9,12 @@ using namespace std;
 
 bool isValid(int row, int col)
 {
-    return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL);
+    return (row >= 0) && (row < Navmesh::ROW) && (col >= 0) && (col < Navmesh::COL);
 }
 
-bool isUnblocked(int grid[][COL], int row, int col)
+bool isUnblocked(Navmesh& mesh, int row, int col)
 {
-    return grid[row][col] == 1;
+    return mesh.getCellAt(row, col) == GSPOT_OPEN;
 }
 
 bool isDestination(int row, int col, navPoint dest)
@@ -34,7 +34,7 @@ double calculateHValue(int row, int col, navPoint dest)
     );
 }
 
-stack<navPoint> tracePath(cell cellDetails[][COL], navPoint dest)
+stack<navPoint> tracePath(cell cellDetails[][Navmesh::COL], navPoint dest)
 {
     stack<navPoint> path;
     int row, col;
@@ -56,29 +56,41 @@ stack<navPoint> tracePath(cell cellDetails[][COL], navPoint dest)
     return path;
 }
 
-void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *path)
+void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *path)
 {
     if (!isValid(src.x, src.y))
+    {
+        printf("Source must be valid\n");
         return;
+    }
 
     if (!isValid(dest.x, dest.y))
+    {
+        printf("Destination must be valid\n");
         return;
+    }
 
-    if (!isUnblocked(grid, src.x, src.y) || !isUnblocked(grid, dest.x, dest.y))
+    if (!isUnblocked(mesh, src.x, src.y) || !isUnblocked(mesh, dest.x, dest.y))
+    {
+        printf("Source or Destination is blocked\n");
         return;
+    }
 
     if (isDestination(src.x, src.y, dest))
+    {
+        printf("We're already at the destination\n");
         return;
+    }
 
-    bool closedList[ROW][COL];
+    bool closedList[Navmesh::ROW][Navmesh::COL];
     memset(closedList, false, sizeof(closedList));
 
-    cell cellDetails[ROW][COL];
+    cell cellDetails[Navmesh::ROW][Navmesh::COL];
     int i,j;
 
-    for(i = 0; i < ROW; i++)
+    for(i = 0; i < Navmesh::ROW; i++)
     {
-        for(j = 0; j < COL; j++)
+        for(j = 0; j < Navmesh::COL; j++)
         {
             cellDetails[i][j].f = FLT_MAX;
             cellDetails[i][j].g = FLT_MAX;
@@ -143,7 +155,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 foundDest = true;
                 return;
             } else if ((!closedList[i - 1][j])
-                       && isUnblocked(grid, i - 1, j))
+                       && isUnblocked(mesh, i - 1, j))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i - 1, j, dest);
@@ -174,7 +186,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
-            } else if ((!closedList[i + 1][j]) && isUnblocked(grid, i + 1, j))
+            } else if ((!closedList[i + 1][j]) && isUnblocked(mesh, i + 1, j))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i + 1, j, dest);
@@ -205,7 +217,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
-            } else if ((!closedList[i][j + 1]) && isUnblocked(grid, i, j + 1))
+            } else if ((!closedList[i][j + 1]) && isUnblocked(mesh, i, j + 1))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i, j + 1, dest);
@@ -236,7 +248,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
-            } else if ((!closedList[i][j - 1]) && isUnblocked(grid, i, j - 1))
+            } else if ((!closedList[i][j - 1]) && isUnblocked(mesh, i, j - 1))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i, j - 1, dest);
@@ -267,7 +279,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
-            } else if ((!closedList[i - 1][j + 1]) && isUnblocked(grid, i-1, j+1))
+            } else if ((!closedList[i - 1][j + 1]) && isUnblocked(mesh, i-1, j+1))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i - 1, j + 1, dest);
@@ -298,7 +310,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
-            } else if (!(closedList[i - 1][j - 1]) && isUnblocked(grid, i-1,j-1))
+            } else if (!(closedList[i - 1][j - 1]) && isUnblocked(mesh, i-1,j-1))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i - 1, j - 1, dest);
@@ -329,7 +341,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
-            } else if ((!closedList[i+1][j+1]) && isUnblocked(grid,i+1,j+1))
+            } else if ((!closedList[i+1][j+1]) && isUnblocked(mesh,i+1,j+1))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i+1,j+1,dest);
@@ -360,7 +372,7 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
-            } else if ((!closedList[i+1][j-1]) && isUnblocked(grid, i+1, j-1))
+            } else if ((!closedList[i+1][j-1]) && isUnblocked(mesh, i+1, j-1))
             {
                 gNew = cellDetails[i][j].g + 1.0;
                 hNew = calculateHValue(i+1,j-1,dest);
@@ -389,22 +401,13 @@ void aStarSearch(int grid[][COL], navPoint src, navPoint dest, stack<navPoint> *
 
 void aStarTest(Renderer& r)
 {
-    int grid[ROW][COL]
-        = { { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
-            { 1, 1, 1, 0, 1, 1, 1, 0, 1, 1 },
-            { 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
-            { 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 },
-            { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
-            { 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
-            { 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
-            { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
-            { 1, 1, 1, 0, 0, 0, 1, 0, 0, 1 } };
+    Navmesh mesh;
 
     navPoint src  = { 8, 0 };
-    navPoint dest = { 0, 0 };
+    navPoint dest = { 16, 15 };
     stack<navPoint> path;
 
-    aStarSearch(grid, src, dest, &path);
+    aStarSearch(mesh, src, dest, &path);
 
     navPoint lastPoint, curPoint;
     while(!path.empty())
@@ -412,7 +415,13 @@ void aStarTest(Renderer& r)
         lastPoint = curPoint;
         curPoint = path.top();
         path.pop();
-        SDL_SetRenderDrawColor(r.getHandle(), 0xFF, 0xFF, 0xFF, 0xFF);
-        SDL_RenderDrawPoint(r.getHandle(), curPoint.x * 32, curPoint.y * 32);
+        SDL_SetRenderDrawColor(r.getHandle(), 0xFF, 0x00, 0x00, 0xFF);
+
+        int x1 = 15 + (30 * curPoint.x);
+        int y1 = 16 + (32 * curPoint.y);
+        int x2 = 15 + (30 * lastPoint.x);
+        int y2 = 16 + (32 * lastPoint.y);
+
+        SDL_RenderDrawLine(r.getHandle(), x1, y1, x2, y2);
     }
 }

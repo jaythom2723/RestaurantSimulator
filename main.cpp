@@ -34,7 +34,12 @@ int main(int argc, char *argv[])
     float last = 0.0f;
     float deltaTime = 0.0f;
 
-
+    Navmesh mesh;
+    navPoint src = { (emp.getX() / 30), (emp.getY() / 32) };
+    navPoint dest = { 15, 15 };
+    std::stack<navPoint> path;
+    aStarSearch(mesh, src, dest, &path);
+    emp.setPath(path);
 
     while(!quit)
     {
@@ -48,6 +53,8 @@ int main(int argc, char *argv[])
         {
             if(e.type == SDL_QUIT)
                 quit = true;
+
+            /*
             if (e.type == SDL_KEYDOWN)
             {
                 switch(e.key.keysym.sym)
@@ -57,21 +64,40 @@ int main(int argc, char *argv[])
                     break;
                 }
             }
+            */
         }
 
         // update
+        emp.update(deltaTime);
 
         // draw
-        // r.clearScreen();
+        r.clearScreen();
 
         emp.draw(r);
         emp2.draw(r);
         emp3.draw(r);
         emp4.draw(r);
 
+        /*
+            Drawing the navmesh's vertices
+
+                    int i,j;
+        for (i = 0; i < 20; i++)
+        {
+            for (j = 0; j < 25; j++)
+            {
+                SDL_SetRenderDrawColor(r.getHandle(), 0xFF, 0xFF, 0xFF, 0xFF);
+                SDL_RenderDrawPoint(r.getHandle(), 16 + (32 * j), 15 + (30 * i));
+            }
+        }
+
+        */
+
         r.present();
 
         SDL_UpdateWindowSurface(d.getHandle());
+
+        SDL_Delay(1000);
     }
 
     SDL_Quit();

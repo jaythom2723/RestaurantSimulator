@@ -30,11 +30,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="C:/Users/pengu/OneDrive/Desktop/SDL2-2.32.4/x86_64-w64-mingw32/include" />
 			<Add directory="C:/Program Files/SDL2-2.32.4/x86_64-w64-mingw32/include" />
-			<Add directory="E:/Programming/C++/RestaurantSimulator/include/engine" />
-			<Add directory="E:/Programming/C++/RestaurantSimulator/include/engine/res" />
-			<Add directory="E:/Programming/C++/RestaurantSimulator/include/engine/components" />
-			<Add directory="E:/Programming/C++/RestaurantSimulator/include/game" />
+			<Add directory="include" />
+			<Add directory="include/engine" />
+			<Add directory="include/engine/components" />
+			<Add directory="include/engine/nav" />
+			<Add directory="include/engine/res" />
+			<Add directory="include/game" />
 		</Compiler>
 		<Linker>
 			<Add library="mingw32" />
@@ -45,30 +48,30 @@
 			<Add library="winmm" />
 			<Add library="dxguid" />
 			<Add directory="C:/Program Files/SDL2-2.32.4/x86_64-w64-mingw32/lib" />
+			<Add directory="C:/Users/pengu/OneDrive/Desktop/SDL2-2.32.4/x86_64-w64-mingw32/lib" />
 		</Linker>
 		<ExtraCommands>
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
-		<Unit filename="include/engine/aStar.h" />
-		<Unit filename="include/engine/components/transform.h" />
 		<Unit filename="include/engine/dbg.h" />
 		<Unit filename="include/engine/display.h" />
 		<Unit filename="include/engine/entity.h" />
+		<Unit filename="include/engine/nav/aStar.h" />
+		<Unit filename="include/engine/nav/navmesh.h" />
 		<Unit filename="include/engine/renderer.h" />
 		<Unit filename="include/engine/res/texture.h" />
 		<Unit filename="include/game/employee.h" />
-		<Unit filename="include/game/player.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="res/employee.bmp" />
 		<Unit filename="res/test.bmp" />
-		<Unit filename="src/engine/aStar.cpp" />
 		<Unit filename="src/engine/dbg.cpp" />
 		<Unit filename="src/engine/display.cpp" />
 		<Unit filename="src/engine/entity.cpp" />
+		<Unit filename="src/engine/nav/aStar.cpp" />
+		<Unit filename="src/engine/nav/navmesh.cpp" />
 		<Unit filename="src/engine/renderer.cpp" />
 		<Unit filename="src/engine/res/texture.cpp" />
 		<Unit filename="src/game/employee.cpp" />
-		<Unit filename="src/game/player.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

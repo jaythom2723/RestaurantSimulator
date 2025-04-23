@@ -4,11 +4,18 @@
 #include "renderer.h"
 #include "entity.h"
 #include "texture.h"
+#include "navmesh.h"
+
+#include <stack>
 
 class Employee : public Entity
 {
 private:
     int id;
+    std::stack<navPoint> path;
+    float speed = 150.0f;
+    navPoint curWaypoint;
+    bool shouldMove;
 
 protected:
     Texture *texture;
@@ -21,6 +28,8 @@ public:
     void draw(Renderer& r);
 
     int getId();
+    std::stack<navPoint>& getPath();
+    void setPath(std::stack<navPoint> path);
 };
 
 #endif // EMPLOYEE_H_INCLUDED

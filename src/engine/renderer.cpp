@@ -25,6 +25,7 @@ void Renderer::texCopy(SDL_Texture *tex, SDL_Rect *srcrct, SDL_Rect *dstrct)
 
 void Renderer::clearScreen()
 {
+    SDL_SetRenderDrawColor(handle, 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect(handle, nullptr);
 }
 
