@@ -28,6 +28,4 @@ std::stack<navPoint> tracePath(cell cellDetails[][Navmesh::COL], navPoint dest);
 // with
 void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, std::stack<navPoint> *path);
 
-void aStarTest(Renderer& r);
-
 #endif // ASTAR_H_INCLUDED

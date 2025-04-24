@@ -6,7 +6,8 @@
 #include "texture.h"
 #include "navmesh.h"
 
-#include <stack>
+#include "common.h"
+
 #include <vector>
 
 class Employee : public Entity

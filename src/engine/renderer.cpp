@@ -2,8 +2,6 @@
 
 #include "dbg.h"
 
-#include <cstdlib>
-
 using namespace resimdbg;
 
 Renderer::Renderer(SDL_Window *hdl)

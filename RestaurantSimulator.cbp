@@ -54,6 +54,7 @@
 		<ExtraCommands>
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
+		<Unit filename="include/common.h" />
 		<Unit filename="include/engine/dbg.h" />
 		<Unit filename="include/engine/display.h" />
 		<Unit filename="include/engine/entity.h" />

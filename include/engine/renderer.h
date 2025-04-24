@@ -1,9 +1,7 @@
 #ifndef RENDERER_H_INCLUDED
 #define RENDERER_H_INCLUDED
 
-#include <SDL2/SDL.h>
-
-#include <cstdint>
+#include "common.h"
 
 class Renderer
 {

@@ -1,9 +1,7 @@
 #ifndef DISPLAY_H_INCLUDED
 #define DISPLAY_H_INCLUDED
 
-#include <string>
-
-#include <SDL2/SDL.h>
+#include "common.h"
 
 class Display
 {

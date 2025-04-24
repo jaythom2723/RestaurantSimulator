@@ -1,6 +1,7 @@
 #include "navmesh.h"
 
-#include <cstdlib>
+#include "common.h"
+
 #include <ctime>
 
 Navmesh::Navmesh()

@@ -2,8 +2,6 @@
 
 #include "dbg.h"
 
-#include <cstdlib>
-
 Display::Display(std::string title, int width, int height)
 {
     using namespace resimdbg;

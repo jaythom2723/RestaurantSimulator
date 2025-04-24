@@ -1,6 +1,6 @@
 #include "vector.h"
 
-#include <cmath>
+#include "common.h"
 
 Vector2::Vector2(double x, double y)
 {

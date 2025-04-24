@@ -1,9 +1,7 @@
 #include "aStar.h"
 
 #include <set>
-#include <stack>
-#include <iostream>
-#include <cmath>
+#include "common.h"
 
 using namespace std;
 
@@ -397,31 +395,4 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
         printf("Failed to find the destination cell\n");
 
     return;
-}
-
-void aStarTest(Renderer& r)
-{
-    Navmesh mesh;
-
-    navPoint src  = { 8, 0 };
-    navPoint dest = { 16, 15 };
-    stack<navPoint> path;
-
-    aStarSearch(mesh, src, dest, &path);
-
-    navPoint lastPoint, curPoint;
-    while(!path.empty())
-    {
-        lastPoint = curPoint;
-        curPoint = path.top();
-        path.pop();
-        SDL_SetRenderDrawColor(r.getHandle(), 0xFF, 0x00, 0x00, 0xFF);
-
-        int x1 = 15 + (30 * curPoint.x);
-        int y1 = 16 + (32 * curPoint.y);
-        int x2 = 15 + (30 * lastPoint.x);
-        int y2 = 16 + (32 * lastPoint.y);
-
-        SDL_RenderDrawLine(r.getHandle(), x1, y1, x2, y2);
-    }
 }

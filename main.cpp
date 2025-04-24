@@ -1,18 +1,13 @@
-#include <iostream>
-
-#include <SDL2/SDL.h>
+#include "common.h"
 
 #include "dbg.h"
 #include "display.h"
 #include "renderer.h"
 #include "texture.h"
 #include "entity.h"
-#include "transform.h"
 #include "employee.h"
 
 #include "aStar.h"
-
-void testAStar(Navmesh& mesh, Employee& emp);
 
 int main(int argc, char *argv[])
 {
@@ -67,18 +62,20 @@ int main(int argc, char *argv[])
         // draw
         r.clearScreen();
 
-        int row,col;
-        for (row = 0; row < Navmesh::ROW; row++)
-        {
-            for (col = 0; col < Navmesh::COL; col++)
+        /*
+            int row,col;
+            for (row = 0; row < Navmesh::ROW; row++)
             {
-                if (mesh.getCellAt(row, col) == GSPOT_OPEN)
+                for (col = 0; col < Navmesh::COL; col++)
                 {
-                    SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0xff, 0xff, 0xff);
-                    SDL_RenderDrawPoint(r.getHandle(), 16 + (32 * col), 15 + (30 * row));
+                    if (mesh.getCellAt(row, col) == GSPOT_OPEN)
+                    {
+                        SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0xff, 0xff, 0xff);
+                        SDL_RenderDrawPoint(r.getHandle(), 16 + (32 * col), 15 + (30 * row));
+                    }
                 }
             }
-        }
+        */
 
         emp.draw(r);
 

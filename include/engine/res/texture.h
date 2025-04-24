@@ -3,9 +3,7 @@
 
 #include "renderer.h"
 
-#include <SDL2/SDL.h>
-
-#include <string>
+#include "common.h"
 
 class Texture
 {

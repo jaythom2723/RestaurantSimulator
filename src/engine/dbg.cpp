@@ -2,7 +2,7 @@
 
 #include <SDL2/SDL.h>
 
-#include <string>
+#include "common.h"
 
 std::string getMessage(resimdbg::ErrorType t, bool *sdlRelated);
 

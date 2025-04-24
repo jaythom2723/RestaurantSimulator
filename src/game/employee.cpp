@@ -3,11 +3,9 @@
 #include "dbg.h"
 #include "aStar.h"
 
-#include <SDL2/SDL.h>
+#include "common.h"
 
-#include <cmath>
 #include <ctime>
-#include <cstdlib>
 
 float Employee::calcDistanceToWaypoint()
 {
@@ -112,7 +110,7 @@ std::stack<navPoint>& Employee::getPath()
 
 void Employee::choosePath(Navmesh& mesh)
 {
-    navPoint src = (navPoint){ pos.x / 32, pos.y / 30 };
+    navPoint src = (navPoint){ (int)pos.x / 32, (int)pos.y / 30 };
 
     // TODO: have the employee determine their destination on their own
     navPoint dest = (navPoint){ 0 };
