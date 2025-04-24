@@ -1,21 +1,37 @@
 #include "entity.h"
 
+Vector2 Entity::calcOrigin()
+{
+    return Vector2(pos.x + (width / 2), pos.y + (height / 2));
+}
+
+Entity::Entity(Vector2 pos, int width, int height)
+{
+    this->pos = pos;
+    this->width = width;
+    this->height = height;
+}
+
 Entity::Entity(int x, int y, int w, int h)
 {
-    this->x = x;
-    this->y = y;
+    this->pos = Vector2(x, y);
     this->width = w;
     this->height = h;
 }
 
+void Entity::setPos(Vector2 pos)
+{
+    this->pos = pos;
+}
+
 void Entity::setX(int x)
 {
-    this->x = x;
+    this->pos.x = x;
 }
 
 void Entity::setY(int y)
 {
-    this->y = y;
+    this->pos.y = y;
 }
 
 void Entity::setWidth(int width)
@@ -28,14 +44,19 @@ void Entity::setHeight(int height)
     this->height = height;
 }
 
+Vector2 Entity::getPos()
+{
+    return pos;
+}
+
 int Entity::getX()
 {
-    return x;
+    return pos.x;
 }
 
 int Entity::getY()
 {
-    return y;
+    return pos.y;
 }
 
 int Entity::getWidth()

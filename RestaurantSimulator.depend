@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745480902 source:e:\programming\c++\restaurantsimulator\main.cpp
+1745484561 source:e:\programming\c++\restaurantsimulator\main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	"dbg.h"
@@ -487,12 +487,13 @@
 	"texture.h"
 	"dbg.h"
 
-1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\entity.cpp
+1745483924 source:e:\programming\c++\restaurantsimulator\src\engine\entity.cpp
 	"entity.h"
 
-1745381968 e:\programming\c++\restaurantsimulator\include\engine\entity.h
+1745484241 e:\programming\c++\restaurantsimulator\include\engine\entity.h
 	"display.h"
 	"renderer.h"
+	"vector.h"
 
 1745381114 e:\programming\c++\restaurantsimulator\include\engine\components\transform.h
 
@@ -505,7 +506,7 @@
 	"renderer.h"
 	"entity.h"
 
-1745479877 e:\programming\c++\restaurantsimulator\include\game\employee.h
+1745483938 e:\programming\c++\restaurantsimulator\include\game\employee.h
 	"renderer.h"
 	"entity.h"
 	"texture.h"
@@ -513,7 +514,7 @@
 	<stack>
 	<vector>
 
-1745480436 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
+1745484443 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
 	"employee.h"
 	"dbg.h"
 	"aStar.h"
@@ -1097,4 +1098,10 @@
 	"navmesh.h"
 	<cstdlib>
 	<ctime>
+
+1745484253 e:\programming\c++\restaurantsimulator\include\math\vector.h
+
+1745484118 source:e:\programming\c++\restaurantsimulator\src\math\vector.cpp
+	"vector.h"
+	<cmath>
 

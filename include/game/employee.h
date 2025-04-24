@@ -22,7 +22,6 @@ private:
 
     bool shouldMove;
 
-    std::pair<int,int> calcOrigin();
     float calcDistanceToWaypoint();
     float calcAngleToWaypoint();
 

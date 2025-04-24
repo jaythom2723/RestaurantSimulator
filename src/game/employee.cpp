@@ -9,29 +9,22 @@
 #include <ctime>
 #include <cstdlib>
 
-using namespace resimdbg;
-
-std::pair<int, int> Employee::calcOrigin()
-{
-    return std::make_pair(x + (width / 2), y + (height / 2));
-}
-
 float Employee::calcDistanceToWaypoint()
 {
     using namespace std;
 
-    std::pair<int,int> o = calcOrigin();
+    Vector2 o = calcOrigin();
 
-    return sqrt(pow(curWaypoint.x - o.first, 2) + pow(curWaypoint.y - o.second, 2));
+    return sqrt(pow(curWaypoint.x - o.x, 2) + pow(curWaypoint.y - o.y, 2));
 }
 
 float Employee::calcAngleToWaypoint()
 {
     using namespace std;
 
-    std::pair<int, int> o = calcOrigin();
+    Vector2 o = calcOrigin();
 
-    return atan2(curWaypoint.y - o.second, curWaypoint.x - o.first);
+    return atan2(curWaypoint.y - o.y, curWaypoint.x - o.x);
 }
 
 Employee::Employee(Renderer& r, int id, int x, int y) : Entity(x, y, 32, 32)
@@ -77,7 +70,7 @@ void Employee::update(double deltaTime)
         distToCurWaypoint = calcDistanceToWaypoint();
         angleToCurWaypoint = calcAngleToWaypoint();
 
-        if (distToCurWaypoint <= 20.0f)
+        if (distToCurWaypoint <= 10.0f)
         {
             shouldMove = false;
             path.pop();
@@ -85,13 +78,13 @@ void Employee::update(double deltaTime)
             if (path.empty())
             {
                 // TODO: Lerp :P
-                x = curWaypoint.x - (width / 2);
-                y = curWaypoint.y - (height / 2);
+                pos.x = curWaypoint.x - (width / 2);
+                pos.y = curWaypoint.y - (height / 2);
             }
         } else
         {
-            x += (cos(angleToCurWaypoint) * speed) * deltaTime;
-            y += (sin(angleToCurWaypoint) * speed) * deltaTime;
+            pos.x += (cos(angleToCurWaypoint) * speed) * deltaTime;
+            pos.y += (sin(angleToCurWaypoint) * speed) * deltaTime;
         }
     }
 }
@@ -99,8 +92,8 @@ void Employee::update(double deltaTime)
 void Employee::draw(Renderer& r)
 {
     SDL_Rect rect = {0};
-    rect.x = x;
-    rect.y = y;
+    rect.x = pos.x;
+    rect.y = pos.y;
     rect.w = width;
     rect.h = height;
 
@@ -119,7 +112,7 @@ std::stack<navPoint>& Employee::getPath()
 
 void Employee::choosePath(Navmesh& mesh)
 {
-    navPoint src = (navPoint){ x / 32, y / 30 };
+    navPoint src = (navPoint){ pos.x / 32, pos.y / 30 };
 
     // TODO: have the employee determine their destination on their own
     navPoint dest = (navPoint){ 0 };

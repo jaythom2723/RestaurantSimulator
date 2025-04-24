@@ -3,24 +3,32 @@
 
 #include "display.h"
 #include "renderer.h"
+#include "vector.h"
 
 class Entity
 {
 protected:
-    int x, y, width, height;
+    Vector2 pos;
+
+    int width, height;
+
+    Vector2 calcOrigin();
 
 public:
+    Entity(Vector2 pos, int width, int height);
     Entity(int x, int y, int w, int h);
     virtual ~Entity() {}
 
     virtual void update(double deltaTime) {}
     virtual void draw(Renderer& r) {}
 
+    void setPos(Vector2 pos);
     void setX(int x);
     void setY(int y);
     void setWidth(int width);
     void setHeight(int height);
 
+    Vector2 getPos();
     int getX();
     int getY();
     int getWidth();
