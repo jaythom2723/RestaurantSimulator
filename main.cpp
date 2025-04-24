@@ -12,6 +12,8 @@
 
 #include "aStar.h"
 
+void testAStar(Navmesh& mesh, Employee& emp);
+
 int main(int argc, char *argv[])
 {
     using namespace resimdbg;
@@ -23,9 +25,6 @@ int main(int argc, char *argv[])
     Renderer r(d.getHandle());
 
     Employee emp(r, 0, 100, 100);
-    Employee emp2(r, 1, 132, 100);
-    Employee emp3(r, 2, 164, 100);
-    Employee emp4(r, 3, 196, 100);
 
     SDL_Event e;
     bool quit = false;
@@ -35,11 +34,6 @@ int main(int argc, char *argv[])
     double deltaTime = 0.0f;
 
     Navmesh mesh;
-    navPoint src = { (emp.getX() / 32), (emp.getY() / 30) };
-    navPoint dest = { 15, 15 };
-    std::stack<navPoint> path;
-    aStarSearch(mesh, src, dest, &path);
-    emp.setPath(path);
 
     while (!quit)
     {
@@ -58,7 +52,7 @@ int main(int argc, char *argv[])
                 switch (e.key.keysym.sym)
                 {
                 case SDLK_SPACE:
-                    emp.getPath().pop();
+                    emp.choosePath(mesh);
                     break;
                 }
             }

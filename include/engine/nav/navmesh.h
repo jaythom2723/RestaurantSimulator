@@ -22,6 +22,7 @@ public:
     Navmesh();
     ~Navmesh();
 
+    void _dbg_regen();
     void setGrid(GridSpot grid[][COL]);
     GridSpot getCellAt(int row, int col);
     void blockCellAt(int row, int col);

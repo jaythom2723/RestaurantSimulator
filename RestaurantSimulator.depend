@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745473514 source:e:\programming\c++\restaurantsimulator\main.cpp
+1745480902 source:e:\programming\c++\restaurantsimulator\main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	"dbg.h"
@@ -505,18 +505,22 @@
 	"renderer.h"
 	"entity.h"
 
-1745467382 e:\programming\c++\restaurantsimulator\include\game\employee.h
+1745479877 e:\programming\c++\restaurantsimulator\include\game\employee.h
 	"renderer.h"
 	"entity.h"
 	"texture.h"
 	"navmesh.h"
 	<stack>
+	<vector>
 
-1745473273 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
+1745480436 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
 	"employee.h"
 	"dbg.h"
+	"aStar.h"
 	<SDL2/SDL.h>
 	<cmath>
+	<ctime>
+	<cstdlib>
 
 1745325066 source:e:\programming\c++\restaurantsimulator\src\engine\astar.cpp
 	"aStar.h"
@@ -1074,7 +1078,7 @@
 
 1745357699 c:\users\pengu\onedrive\desktop\restaurantsimulator\include\engine\nav\navmesh.h
 
-1745381114 e:\programming\c++\restaurantsimulator\include\engine\nav\navmesh.h
+1745475603 e:\programming\c++\restaurantsimulator\include\engine\nav\navmesh.h
 
 1745381114 e:\programming\c++\restaurantsimulator\include\engine\nav\astar.h
 	<bits/stdc++.h>
@@ -1082,14 +1086,15 @@
 	"renderer.h"
 	"navmesh.h"
 
-1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\nav\astar.cpp
+1745480658 source:e:\programming\c++\restaurantsimulator\src\engine\nav\astar.cpp
 	"aStar.h"
 	<set>
 	<stack>
 	<iostream>
 	<cmath>
 
-1745473603 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
+1745480770 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
 	"navmesh.h"
 	<cstdlib>
+	<ctime>
 

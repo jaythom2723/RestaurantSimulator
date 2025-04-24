@@ -1,12 +1,38 @@
 #include "employee.h"
 
 #include "dbg.h"
+#include "aStar.h"
 
 #include <SDL2/SDL.h>
 
 #include <cmath>
+#include <ctime>
+#include <cstdlib>
 
 using namespace resimdbg;
+
+std::pair<int, int> Employee::calcOrigin()
+{
+    return std::make_pair(x + (width / 2), y + (height / 2));
+}
+
+float Employee::calcDistanceToWaypoint()
+{
+    using namespace std;
+
+    std::pair<int,int> o = calcOrigin();
+
+    return sqrt(pow(curWaypoint.x - o.first, 2) + pow(curWaypoint.y - o.second, 2));
+}
+
+float Employee::calcAngleToWaypoint()
+{
+    using namespace std;
+
+    std::pair<int, int> o = calcOrigin();
+
+    return atan2(curWaypoint.y - o.second, curWaypoint.x - o.first);
+}
 
 Employee::Employee(Renderer& r, int id, int x, int y) : Entity(x, y, 32, 32)
 {
@@ -15,6 +41,7 @@ Employee::Employee(Renderer& r, int id, int x, int y) : Entity(x, y, 32, 32)
     texture = new Texture(r, "res/employee.bmp");
 
     curWaypoint = (navPoint){-1,-1};
+
     distToCurWaypoint = 0.0f;
     angleToCurWaypoint = 0.0f;
 
@@ -35,28 +62,31 @@ void Employee::update(double deltaTime)
         curWaypoint.x = 16 + (32 * path.top().x);
         curWaypoint.y = 15 + (30 * path.top().y);
 
-        distToCurWaypoint = sqrt(pow(curWaypoint.x - x, 2) + pow(curWaypoint.y - y, 2));
-        angleToCurWaypoint = atan2(curWaypoint.y - y, curWaypoint.x - x);
+        // TODO: Lerp;
+        // x = curWaypoint.x;
+        // y = curWaypoint.y;
+
+        distToCurWaypoint = calcDistanceToWaypoint();
+        angleToCurWaypoint = calcAngleToWaypoint();
 
         shouldMove = true;
-
-        printf("New waypoint! -> (%d, %d)\n", curWaypoint.x, curWaypoint.y);
     }
 
     if (shouldMove)
     {
-        distToCurWaypoint = sqrt(pow(curWaypoint.x - x, 2) + pow(curWaypoint.y - y, 2));
+        distToCurWaypoint = calcDistanceToWaypoint();
+        angleToCurWaypoint = calcAngleToWaypoint();
 
         if (distToCurWaypoint <= 20.0f)
         {
             shouldMove = false;
             path.pop();
 
-            printf("Arrived at waypoint! -> (%d, %d)\n", curWaypoint.x, curWaypoint.y);
-
             if (path.empty())
             {
-                printf("Arrived at destination!\n");
+                // TODO: Lerp :P
+                x = curWaypoint.x - (width / 2);
+                y = curWaypoint.y - (height / 2);
             }
         } else
         {
@@ -75,18 +105,6 @@ void Employee::draw(Renderer& r)
     rect.h = height;
 
     r.texCopy(texture->getTexture(), nullptr, &rect);
-
-    if (curWaypoint.x != -1 && curWaypoint.y != -1)
-    {
-        SDL_Rect pointRect = {0};
-        pointRect.w = 4;
-        pointRect.h = 4;
-        pointRect.x = curWaypoint.x - (pointRect.w / 2);
-        pointRect.y = curWaypoint.y - (pointRect.h / 2);
-
-        SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0x00, 0x00, 0xff);
-        SDL_RenderFillRect(r.getHandle(), &pointRect);
-    }
 }
 
 int Employee::getId()
@@ -99,7 +117,16 @@ std::stack<navPoint>& Employee::getPath()
     return path;
 }
 
-void Employee::setPath(std::stack<navPoint> path)
+void Employee::choosePath(Navmesh& mesh)
 {
-    this->path = path;
+    navPoint src = (navPoint){ x / 32, y / 30 };
+
+    // TODO: have the employee determine their destination on their own
+    navPoint dest = (navPoint){ 0 };
+    dest.x = std::rand() % (Navmesh::COL - 1);
+    dest.y = std::rand() % (Navmesh::ROW - 1);
+
+    std::printf("%d, %d\n", dest.x, dest.y);
+
+    aStarSearch(mesh, src, dest, &path);
 }

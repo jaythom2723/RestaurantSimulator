@@ -1,9 +1,11 @@
 #include "navmesh.h"
 
 #include <cstdlib>
+#include <ctime>
 
 Navmesh::Navmesh()
 {
+    std::srand(std::time(nullptr));
     int i,j,r;
 
     for(i = 0; i < ROW; i++)
@@ -20,6 +22,21 @@ Navmesh::Navmesh()
 Navmesh::~Navmesh()
 {
 
+}
+
+void Navmesh::_dbg_regen()
+{
+    std::srand(std::time(nullptr));
+    int i,j,r;
+
+    for (i = 0; i < ROW; i++)
+    {
+        for (j = 0; j < COL; j++)
+        {
+            r = std::rand() % 100;
+            grid[i][j] = r <= 10 ? GSPOT_BLOCKED : GSPOT_OPEN;
+        }
+    }
 }
 
 void Navmesh::setGrid(GridSpot grid[][COL])

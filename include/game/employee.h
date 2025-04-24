@@ -7,19 +7,24 @@
 #include "navmesh.h"
 
 #include <stack>
+#include <vector>
 
 class Employee : public Entity
 {
 private:
     int id;
     std::stack<navPoint> path;
-    float speed = 150;
+    float speed = 125;
 
     navPoint curWaypoint;
     float distToCurWaypoint;
     float angleToCurWaypoint;
 
     bool shouldMove;
+
+    std::pair<int,int> calcOrigin();
+    float calcDistanceToWaypoint();
+    float calcAngleToWaypoint();
 
 protected:
     Texture *texture;
@@ -33,7 +38,7 @@ public:
 
     int getId();
     std::stack<navPoint>& getPath();
-    void setPath(std::stack<navPoint> path);
+    void choosePath(Navmesh& mesh);
 };
 
 #endif // EMPLOYEE_H_INCLUDED
