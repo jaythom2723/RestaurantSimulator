@@ -1,6 +1,8 @@
 #ifndef NAVMESH_H_INCLUDED
 #define NAVMESH_H_INCLUDED
 
+#include "vector.h"
+
 typedef enum
 {
     // lol "g-spot"
@@ -26,6 +28,10 @@ public:
     void setGrid(GridSpot grid[][COL]);
     GridSpot getCellAt(int row, int col);
     void blockCellAt(int row, int col);
+
+    static navPoint MeshPointToWorldPoint(navPoint p);
+    static navPoint WorldPointToMeshPoint(navPoint p);
+    static navPoint Vector2ToMeshPoint(Vector2 v);
 
 private:
     GridSpot grid[ROW][COL];

@@ -42,6 +42,7 @@ void Navmesh::_dbg_regen()
 
 void Navmesh::setGrid(GridSpot grid[][COL])
 {
+    // TODO: prototype
     // memcpy(this->grid, grid, sizeof(GridSpot) * (ROW * COL));
 }
 
@@ -53,4 +54,19 @@ GridSpot Navmesh::getCellAt(int row, int col)
 void Navmesh::blockCellAt(int row, int col)
 {
     grid[row][col] = GSPOT_BLOCKED;
+}
+
+navPoint Navmesh::MeshPointToWorldPoint(navPoint p)
+{
+    return (navPoint){ 16 + (32 * p.x), 15 + (30 * p.y) };
+}
+
+navPoint Navmesh::WorldPointToMeshPoint(navPoint p)
+{
+    return (navPoint){ (p.x / 32), (p.y / 30) };
+}
+
+navPoint Navmesh::Vector2ToMeshPoint(Vector2 v)
+{
+    return (navPoint){ (v.x / 32), (v.y / 30) };
 }

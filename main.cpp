@@ -4,10 +4,7 @@
 #include "display.h"
 #include "renderer.h"
 #include "texture.h"
-#include "entity.h"
 #include "employee.h"
-
-#include "aStar.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,7 +16,7 @@ int main(int argc, char *argv[])
     Display d("Test Window", 800, 600);
     Renderer r(d.getHandle());
 
-    Employee emp(r, 0, 100, 100);
+    Employee emp(r, 0, Vector2(16, 15), 125.0f);
 
     SDL_Event e;
     bool quit = false;
@@ -61,21 +58,6 @@ int main(int argc, char *argv[])
 
         // draw
         r.clearScreen();
-
-        /*
-            int row,col;
-            for (row = 0; row < Navmesh::ROW; row++)
-            {
-                for (col = 0; col < Navmesh::COL; col++)
-                {
-                    if (mesh.getCellAt(row, col) == GSPOT_OPEN)
-                    {
-                        SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0xff, 0xff, 0xff);
-                        SDL_RenderDrawPoint(r.getHandle(), 16 + (32 * col), 15 + (30 * row));
-                    }
-                }
-            }
-        */
 
         emp.draw(r);
 

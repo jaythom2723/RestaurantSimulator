@@ -8,8 +8,27 @@
 
 #include "common.h"
 
+#include "actor.h"
+
 #include <vector>
 
+class Employee : public Actor
+{
+private:
+    int id;
+
+public:
+    Employee(Renderer& r, int id, Vector2 pos, float speed);
+    ~Employee();
+
+    void update(double deltaTime);
+    void draw(Renderer& r);
+
+    int getId();
+    const std::stack<navPoint>& getPath();
+};
+
+/*
 class Employee : public Entity
 {
 private:
@@ -40,5 +59,6 @@ public:
     std::stack<navPoint>& getPath();
     void choosePath(Navmesh& mesh);
 };
+*/
 
 #endif // EMPLOYEE_H_INCLUDED

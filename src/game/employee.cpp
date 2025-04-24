@@ -7,25 +7,8 @@
 
 #include <ctime>
 
-float Employee::calcDistanceToWaypoint()
-{
-    using namespace std;
-
-    Vector2 o = calcOrigin();
-
-    return sqrt(pow(curWaypoint.x - o.x, 2) + pow(curWaypoint.y - o.y, 2));
-}
-
-float Employee::calcAngleToWaypoint()
-{
-    using namespace std;
-
-    Vector2 o = calcOrigin();
-
-    return atan2(curWaypoint.y - o.y, curWaypoint.x - o.x);
-}
-
-Employee::Employee(Renderer& r, int id, int x, int y) : Entity(x, y, 32, 32)
+Employee::Employee(Renderer& r, int id, Vector2 pos, float speed)
+    : Actor(r, "res/employee.bmp", pos, 32, 32, speed)
 {
     this->id = id;
 
@@ -41,50 +24,15 @@ Employee::Employee(Renderer& r, int id, int x, int y) : Entity(x, y, 32, 32)
 
 Employee::~Employee()
 {
-    delete texture;
+
 }
 
 void Employee::update(double deltaTime)
 {
     using namespace std;
 
-    if (!path.empty() && !shouldMove)
-    {
-        curWaypoint.x = 16 + (32 * path.top().x);
-        curWaypoint.y = 15 + (30 * path.top().y);
-
-        // TODO: Lerp;
-        // x = curWaypoint.x;
-        // y = curWaypoint.y;
-
-        distToCurWaypoint = calcDistanceToWaypoint();
-        angleToCurWaypoint = calcAngleToWaypoint();
-
-        shouldMove = true;
-    }
-
-    if (shouldMove)
-    {
-        distToCurWaypoint = calcDistanceToWaypoint();
-        angleToCurWaypoint = calcAngleToWaypoint();
-
-        if (distToCurWaypoint <= 10.0f)
-        {
-            shouldMove = false;
-            path.pop();
-
-            if (path.empty())
-            {
-                // TODO: Lerp :P
-                pos.x = curWaypoint.x - (width / 2);
-                pos.y = curWaypoint.y - (height / 2);
-            }
-        } else
-        {
-            pos.x += (cos(angleToCurWaypoint) * speed) * deltaTime;
-            pos.y += (sin(angleToCurWaypoint) * speed) * deltaTime;
-        }
-    }
+    getNextWaypoint();
+    moveTowardsWaypoint(deltaTime);
 }
 
 void Employee::draw(Renderer& r)
@@ -96,6 +44,12 @@ void Employee::draw(Renderer& r)
     rect.h = height;
 
     r.texCopy(texture->getTexture(), nullptr, &rect);
+
+    if (curWaypoint.x != -1 && curWaypoint.y != -1)
+    {
+        SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0x00, 0x00, 0xff);
+        SDL_RenderDrawPoint(r.getHandle(), curWaypoint.x, curWaypoint.y);
+    }
 }
 
 int Employee::getId()
@@ -103,21 +57,7 @@ int Employee::getId()
     return id;
 }
 
-std::stack<navPoint>& Employee::getPath()
+const std::stack<navPoint>& Employee::getPath()
 {
     return path;
-}
-
-void Employee::choosePath(Navmesh& mesh)
-{
-    navPoint src = (navPoint){ (int)pos.x / 32, (int)pos.y / 30 };
-
-    // TODO: have the employee determine their destination on their own
-    navPoint dest = (navPoint){ 0 };
-    dest.x = std::rand() % (Navmesh::COL - 1);
-    dest.y = std::rand() % (Navmesh::ROW - 1);
-
-    std::printf("%d, %d\n", dest.x, dest.y);
-
-    aStarSearch(mesh, src, dest, &path);
 }
