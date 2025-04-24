@@ -35,13 +35,13 @@ int main(int argc, char *argv[])
     double deltaTime = 0.0f;
 
     Navmesh mesh;
-    navPoint src = { (emp.getX() / 30), (emp.getY() / 32) };
+    navPoint src = { (emp.getX() / 32), (emp.getY() / 30) };
     navPoint dest = { 15, 15 };
     std::stack<navPoint> path;
     aStarSearch(mesh, src, dest, &path);
     emp.setPath(path);
 
-    while(!quit)
+    while (!quit)
     {
         last = now;
         now = (float) SDL_GetPerformanceCounter();
@@ -49,10 +49,19 @@ int main(int argc, char *argv[])
         deltaTime = (double)((now - last) * 1000 / (double) SDL_GetPerformanceFrequency());
         deltaTime *= 0.001;
 
-        while(SDL_PollEvent(&e))
+        while (SDL_PollEvent(&e))
         {
-            if(e.type == SDL_QUIT)
+            if (e.type == SDL_QUIT)
                 quit = true;
+            if (e.type == SDL_KEYDOWN)
+            {
+                switch (e.key.keysym.sym)
+                {
+                case SDLK_SPACE:
+                    emp.getPath().pop();
+                    break;
+                }
+            }
         }
 
         // update
@@ -60,6 +69,19 @@ int main(int argc, char *argv[])
 
         // draw
         r.clearScreen();
+
+        int row,col;
+        for (row = 0; row < Navmesh::ROW; row++)
+        {
+            for (col = 0; col < Navmesh::COL; col++)
+            {
+                if (mesh.getCellAt(row, col) == GSPOT_OPEN)
+                {
+                    SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0xff, 0xff, 0xff);
+                    SDL_RenderDrawPoint(r.getHandle(), 16 + (32 * col), 15 + (30 * row));
+                }
+            }
+        }
 
         emp.draw(r);
 

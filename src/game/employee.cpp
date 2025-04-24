@@ -13,6 +13,12 @@ Employee::Employee(Renderer& r, int id, int x, int y) : Entity(x, y, 32, 32)
     this->id = id;
 
     texture = new Texture(r, "res/employee.bmp");
+
+    curWaypoint = (navPoint){-1,-1};
+    distToCurWaypoint = 0.0f;
+    angleToCurWaypoint = 0.0f;
+
+    shouldMove = false;
 }
 
 Employee::~Employee()
@@ -22,32 +28,40 @@ Employee::~Employee()
 
 void Employee::update(double deltaTime)
 {
+    using namespace std;
+
     if (!path.empty() && !shouldMove)
     {
-        curWaypoint = path.top();
+        curWaypoint.x = 16 + (32 * path.top().x);
+        curWaypoint.y = 15 + (30 * path.top().y);
+
+        distToCurWaypoint = sqrt(pow(curWaypoint.x - x, 2) + pow(curWaypoint.y - y, 2));
+        angleToCurWaypoint = atan2(curWaypoint.y - y, curWaypoint.x - x);
+
         shouldMove = true;
-        std::printf("New waypoint!\n(%d, %d)\n", curWaypoint.x, curWaypoint.y);
+
+        printf("New waypoint! -> (%d, %d)\n", curWaypoint.x, curWaypoint.y);
     }
 
-    if (shouldMove && !path.empty())
+    if (shouldMove)
     {
-        int scaledX, scaledY;
-        float angle, dist;
+        distToCurWaypoint = sqrt(pow(curWaypoint.x - x, 2) + pow(curWaypoint.y - y, 2));
 
-        scaledX = 16 + (32 * curWaypoint.x);
-        scaledY = 15 + (30 * curWaypoint.y);
-
-        angle = std::atan2(scaledY - y, scaledX - x);
-        dist = std::sqrt(std::pow(scaledX - x, 2) + std::pow(scaledY - y, 2));
-
-        x += (std::cos(angle) * speed) * deltaTime;
-        y += (std::sin(angle) * speed) * deltaTime;
-
-        if (dist <= 10)
+        if (distToCurWaypoint <= 20.0f)
         {
-            curWaypoint = (navPoint){ -1, -1 };
             shouldMove = false;
             path.pop();
+
+            printf("Arrived at waypoint! -> (%d, %d)\n", curWaypoint.x, curWaypoint.y);
+
+            if (path.empty())
+            {
+                printf("Arrived at destination!\n");
+            }
+        } else
+        {
+            x += (cos(angleToCurWaypoint) * speed) * deltaTime;
+            y += (sin(angleToCurWaypoint) * speed) * deltaTime;
         }
     }
 }
@@ -61,6 +75,18 @@ void Employee::draw(Renderer& r)
     rect.h = height;
 
     r.texCopy(texture->getTexture(), nullptr, &rect);
+
+    if (curWaypoint.x != -1 && curWaypoint.y != -1)
+    {
+        SDL_Rect pointRect = {0};
+        pointRect.w = 4;
+        pointRect.h = 4;
+        pointRect.x = curWaypoint.x - (pointRect.w / 2);
+        pointRect.y = curWaypoint.y - (pointRect.h / 2);
+
+        SDL_SetRenderDrawColor(r.getHandle(), 0xff, 0x00, 0x00, 0xff);
+        SDL_RenderFillRect(r.getHandle(), &pointRect);
+    }
 }
 
 int Employee::getId()

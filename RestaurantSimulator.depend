@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1745382341 source:e:\programming\c++\restaurantsimulator\main.cpp
+1745473514 source:e:\programming\c++\restaurantsimulator\main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	"dbg.h"
@@ -505,14 +505,14 @@
 	"renderer.h"
 	"entity.h"
 
-1745382312 e:\programming\c++\restaurantsimulator\include\game\employee.h
+1745467382 e:\programming\c++\restaurantsimulator\include\game\employee.h
 	"renderer.h"
 	"entity.h"
 	"texture.h"
 	"navmesh.h"
 	<stack>
 
-1745382145 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
+1745473273 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
 	"employee.h"
 	"dbg.h"
 	<SDL2/SDL.h>
@@ -1089,6 +1089,7 @@
 	<iostream>
 	<cmath>
 
-1745381114 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
+1745473603 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
 	"navmesh.h"
+	<cstdlib>
 

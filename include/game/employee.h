@@ -14,7 +14,11 @@ private:
     int id;
     std::stack<navPoint> path;
     float speed = 150;
+
     navPoint curWaypoint;
+    float distToCurWaypoint;
+    float angleToCurWaypoint;
+
     bool shouldMove;
 
 protected:

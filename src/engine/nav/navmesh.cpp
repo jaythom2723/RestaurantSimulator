@@ -1,14 +1,18 @@
 #include "navmesh.h"
 
+#include <cstdlib>
+
 Navmesh::Navmesh()
 {
-    int i,j;
+    int i,j,r;
 
     for(i = 0; i < ROW; i++)
     {
         for(j = 0; j < COL; j++)
         {
-            grid[i][j] = GSPOT_OPEN;
+            r = std::rand() % 100;
+
+            grid[i][j] = r <= 25 ? GSPOT_BLOCKED : GSPOT_OPEN;
         }
     }
 }
