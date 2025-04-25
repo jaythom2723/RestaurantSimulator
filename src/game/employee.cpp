@@ -1,25 +1,13 @@
 #include "employee.h"
 
+#include "common.h"
 #include "dbg.h"
 #include "aStar.h"
 
-#include "common.h"
-
-#include <ctime>
-
 Employee::Employee(Renderer& r, int id, Vector2 pos, float speed)
-    : Actor(r, "res/employee.bmp", pos, 32, 32, speed)
+    : Actor(r, "res/gfx/employee.bmp", pos, 32, 32, speed)
 {
     this->id = id;
-
-    texture = new Texture(r, "res/employee.bmp");
-
-    curWaypoint = (navPoint){-1,-1};
-
-    distToCurWaypoint = 0.0f;
-    angleToCurWaypoint = 0.0f;
-
-    shouldMove = false;
 }
 
 Employee::~Employee()
@@ -27,12 +15,22 @@ Employee::~Employee()
 
 }
 
-void Employee::update(double deltaTime)
+void Employee::update(double deltaTime, Navmesh& mesh)
 {
-    using namespace std;
-
     getNextWaypoint();
     moveTowardsWaypoint(deltaTime);
+
+    while (Task::openTasks.size() > 0 && !task)
+    {
+        std::pair<TaskClass,Task*> top = Task::openTasks.top();
+        Task::openTasks.pop();
+
+        // TODO: Check employee and task class against each other
+
+        // for now, just do any task that appears
+        task = top.second;
+        choosePath(mesh, Navmesh::Vector2ToMeshPoint(task->getDest()));
+    }
 }
 
 void Employee::draw(Renderer& r)

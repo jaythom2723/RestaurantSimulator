@@ -1,11 +1,14 @@
 # depslib dependency file v1.0
-1745533276 source:e:\programming\c++\restaurantsimulator\main.cpp
+1745585861 source:e:\programming\c++\restaurantsimulator\main.cpp
 	"common.h"
 	"dbg.h"
 	"display.h"
 	"renderer.h"
 	"texture.h"
+	"texturedentity.h"
 	"employee.h"
+	"taskentity.h"
+	"puddle.h"
 
 1744024364 c:\program files\sdl2-2.32.4\x86_64-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -497,21 +500,20 @@
 	"renderer.h"
 	"entity.h"
 
-1745532447 e:\programming\c++\restaurantsimulator\include\game\employee.h
+1745585830 e:\programming\c++\restaurantsimulator\include\game\employee.h
+	"common.h"
 	"renderer.h"
 	"entity.h"
 	"texture.h"
 	"navmesh.h"
-	"common.h"
 	"actor.h"
-	<vector>
+	"task.h"
 
-1745533832 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
+1745585910 source:e:\programming\c++\restaurantsimulator\src\game\employee.cpp
 	"employee.h"
+	"common.h"
 	"dbg.h"
 	"aStar.h"
-	"common.h"
-	<ctime>
 
 1745325066 source:e:\programming\c++\restaurantsimulator\src\engine\astar.cpp
 	"aStar.h"
@@ -1069,21 +1071,21 @@
 
 1745357699 c:\users\pengu\onedrive\desktop\restaurantsimulator\include\engine\nav\navmesh.h
 
-1745533392 e:\programming\c++\restaurantsimulator\include\engine\nav\navmesh.h
+1745579097 e:\programming\c++\restaurantsimulator\include\engine\nav\navmesh.h
 	"vector.h"
 
-1745485197 e:\programming\c++\restaurantsimulator\include\engine\nav\astar.h
+1745581168 e:\programming\c++\restaurantsimulator\include\engine\nav\astar.h
+	"common.h"
 	<bits/stdc++.h>
-	<stack>
 	"renderer.h"
 	"navmesh.h"
 
-1745486973 source:e:\programming\c++\restaurantsimulator\src\engine\nav\astar.cpp
+1745578862 source:e:\programming\c++\restaurantsimulator\src\engine\nav\astar.cpp
 	"aStar.h"
 	<set>
 	"common.h"
 
-1745533761 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
+1745585446 source:e:\programming\c++\restaurantsimulator\src\engine\nav\navmesh.cpp
 	"navmesh.h"
 	"common.h"
 	<ctime>
@@ -1094,30 +1096,59 @@
 	"vector.h"
 	"common.h"
 
-1745487059 e:\programming\c++\restaurantsimulator\include\common.h
+1745581108 e:\programming\c++\restaurantsimulator\include\common.h
 	<SDL2/SDL.h>
 	<string>
 	<cstdlib>
 	<cmath>
 	<iostream>
 	<stack>
+	"vector.h"
 
-1745532024 source:e:\programming\c++\restaurantsimulator\src\engine\entity\texturedentity.cpp
+1745546578 source:e:\programming\c++\restaurantsimulator\src\engine\entity\texturedentity.cpp
 	"texturedentity.h"
 
-1745532018 e:\programming\c++\restaurantsimulator\include\engine\entity\texturedentity.h
+1745581202 e:\programming\c++\restaurantsimulator\include\engine\entity\texturedentity.h
 	"common.h"
-	"vector.h"
 	"entity.h"
 	"texture.h"
 
-1745532643 e:\programming\c++\restaurantsimulator\include\engine\entity\actor.h
+1745585821 e:\programming\c++\restaurantsimulator\include\engine\entity\actor.h
 	"common.h"
-	"vector.h"
 	"texturedentity.h"
 	"navmesh.h"
 
-1745533778 source:e:\programming\c++\restaurantsimulator\src\engine\entity\actor.cpp
+1745585642 source:e:\programming\c++\restaurantsimulator\src\engine\entity\actor.cpp
 	"actor.h"
 	"aStar.h"
+
+1745581212 e:\programming\c++\restaurantsimulator\include\engine\entity\entity.h
+	"common.h"
+	"display.h"
+	"renderer.h"
+
+1745483924 source:e:\programming\c++\restaurantsimulator\src\engine\entity\entity.cpp
+	"entity.h"
+
+1745584383 e:\programming\c++\restaurantsimulator\include\engine\entity\taskentity.h
+	"common.h"
+	"task.h"
+	"texturedentity.h"
+
+1745584468 source:e:\programming\c++\restaurantsimulator\src\engine\entity\taskentity.cpp
+	"taskentity.h"
+
+1745585252 source:e:\programming\c++\restaurantsimulator\src\engine\task.cpp
+	"task.h"
+
+1745585246 e:\programming\c++\restaurantsimulator\include\engine\task.h
+	"common.h"
+	"actor.h"
+
+1745584220 source:e:\programming\c++\restaurantsimulator\src\game\puddle.cpp
+	"puddle.h"
+
+1745584187 e:\programming\c++\restaurantsimulator\include\game\puddle.h
+	"common.h"
+	"taskentity.h"
 

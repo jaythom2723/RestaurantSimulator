@@ -5,7 +5,6 @@
 
 #include "common.h"
 
-#include "vector.h"
 #include "texturedentity.h"
 #include "navmesh.h"
 
@@ -33,7 +32,10 @@ public:
     Actor(Renderer& r, std::string path, Vector2 pos, int width, int height, float speed);
     virtual ~Actor();
 
-    void choosePath(Navmesh& mesh);
+    virtual void update(double deltaTime, Navmesh& mesh) {}
+    virtual void draw(Renderer& r) {}
+
+    void choosePath(Navmesh& mesh, navPoint dest);
 };
 
 #endif // ACTOR_H_INCLUDED

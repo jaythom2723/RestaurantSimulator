@@ -4,7 +4,10 @@
 #include "display.h"
 #include "renderer.h"
 #include "texture.h"
+#include "texturedentity.h"
 #include "employee.h"
+#include "taskentity.h"
+#include "puddle.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,7 +19,10 @@ int main(int argc, char *argv[])
     Display d("Test Window", 800, 600);
     Renderer r(d.getHandle());
 
-    Employee emp(r, 0, Vector2(16, 15), 125.0f);
+    Employee emp(r, 0, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){ 0, 0 }), 125.0f);
+    TexturedEntity wall(r, "res/gfx/wall1.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){10, 15}), 32, 32);
+    TaskEntity t(r, "res/gfx/ticket_printer.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5, 5}), 32, 32, 10);\
+    Puddle puddle(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5,10}));
 
     SDL_Event e;
     bool quit = false;
@@ -26,6 +32,7 @@ int main(int argc, char *argv[])
     double deltaTime = 0.0f;
 
     Navmesh mesh;
+    mesh.blockCellAt(15, 10);
 
     while (!quit)
     {
@@ -39,27 +46,20 @@ int main(int argc, char *argv[])
         {
             if (e.type == SDL_QUIT)
                 quit = true;
-            if (e.type == SDL_KEYDOWN)
-            {
-                switch (e.key.keysym.sym)
-                {
-                case SDLK_SPACE:
-                    while (emp.getPath().empty())
-                    {
-                        emp.choosePath(mesh);
-                    }
-                    break;
-                }
-            }
         }
 
         // update
-        emp.update(deltaTime);
+        emp.update(deltaTime, mesh);
+        t.update(deltaTime);
+        puddle.update(deltaTime);
 
         // draw
         r.clearScreen();
 
         emp.draw(r);
+        wall.draw(r);
+        t.draw(r);
+        puddle.draw(r);
 
         r.present();
 

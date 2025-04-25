@@ -1,9 +1,10 @@
 #ifndef ENTITY_H_INCLUDED
 #define ENTITY_H_INCLUDED
 
+#include "common.h"
+
 #include "display.h"
 #include "renderer.h"
-#include "vector.h"
 
 class Entity
 {

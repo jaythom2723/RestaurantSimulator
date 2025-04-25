@@ -10,4 +10,6 @@
 #include <iostream>
 #include <stack>
 
+#include "vector.h"
+
 #endif // COMMON_H_INCLUDED

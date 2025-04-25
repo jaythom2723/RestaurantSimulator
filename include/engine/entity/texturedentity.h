@@ -2,7 +2,6 @@
 #define TEXTUREDENTITY_H_INCLUDED
 
 #include "common.h"
-#include "vector.h"
 
 #include "entity.h"
 #include "texture.h"
@@ -15,6 +14,8 @@ protected:
 public:
     TexturedEntity(Renderer& r, std::string path, Vector2 pos, int width, int height);
     virtual ~TexturedEntity();
+
+    void draw(Renderer& r);
 };
 
 #endif // TEXTUREDENTITY_H_INCLUDED

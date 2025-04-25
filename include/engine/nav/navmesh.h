@@ -7,12 +7,18 @@ typedef enum
 {
     // lol "g-spot"
     GSPOT_OPEN,
-    GSPOT_BLOCKED
+    GSPOT_BLOCKED,
+    GSPOT_INTERACT_POINT,
 } GridSpot;
 
 struct navPoint
 {
     int x,y;
+
+    operator Vector2()
+    {
+        return Vector2(x, y);
+    }
 };
 
 class Navmesh

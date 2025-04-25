@@ -73,14 +73,8 @@ void Actor::moveTowardsWaypoint(double deltaTime)
     pos.y += (std::sin(angleToCurWaypoint) * speed) * deltaTime;
 }
 
-void Actor::choosePath(Navmesh& mesh)
+void Actor::choosePath(Navmesh& mesh, navPoint dest)
 {
-    navPoint src = (navPoint) { (int)pos.x / 32, (int)pos.y / 30 };
-
-    // TODO: have the employee determine their destination on their own
-    navPoint dest = (navPoint){ 0 };
-    dest.x = std::rand() % (Navmesh::COL - 1);
-    dest.y = std::rand() % (Navmesh::ROW - 1);
-
+    navPoint src = Navmesh::Vector2ToMeshPoint(pos);
     aStarSearch(mesh, src, dest, &path);
 }

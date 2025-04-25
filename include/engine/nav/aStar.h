@@ -1,8 +1,9 @@
 #ifndef ASTAR_H_INCLUDED
 #define ASTAR_H_INCLUDED
 
+#include "common.h"
+
 #include <bits/stdc++.h>
-#include <stack>
 
 #include "renderer.h"
 #include "navmesh.h"
