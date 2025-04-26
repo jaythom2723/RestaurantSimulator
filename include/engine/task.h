@@ -4,6 +4,9 @@
 #include "common.h"
 #include "actor.h"
 
+#include <map>
+#include <memory>
+
 /*
     Task Type determines what action to perform
 */
@@ -59,27 +62,28 @@ private:
 
     Vector2 destination;
 
-    //Actor& performer;
-
     bool completed = false;
     bool infinite = false; // infinite task generation!!!
+
+    double completionTimer;
 public:
     static const Task NULLTASK;
-    static std::stack<std::pair<TaskClass, Task*>> openTasks;
+
+    static std::map<TaskClass, std::stack<std::shared_ptr<Task>>*> tasks;
+    // broadcast the task to be located in the game world at (x,y)
+    static void Broadcast(std::shared_ptr<Task> task, Vector2 dest);
 
     Task() {}
-    Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite);
+    Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite, double completionTimer);
     ~Task();
 
-    // broadcast the task to be located in the game world at (x,y)
-    void broadcast(Vector2 dest);
-
-    //void setPerformer(Actor& performer);
+    void perform(double deltaTime); // used by the employee
 
     TaskType getType();
     TaskClass getClass();
     TaskDirection getDir();
 
+    void setDest(Vector2 v);
     Vector2 getDest();
 
     void complete();

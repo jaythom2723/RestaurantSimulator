@@ -1,13 +1,25 @@
 #include "task.h"
 
-std::stack<std::pair<TaskClass, Task*>> Task::openTasks;
+std::map<TaskClass, std::stack<std::shared_ptr<Task>>*> Task::tasks;
 
-Task::Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite)
+void Task::Broadcast(std::shared_ptr<Task> task, Vector2 dest)
+{
+    if (!tasks[task.get()->getClass()])
+    {
+        tasks.insert(std::make_pair(task.get()->getClass(), new std::stack<std::shared_ptr<Task>>()));
+    }
+
+    task.get()->setDest(dest);
+    tasks[task.get()->getClass()]->push(std::shared_ptr<Task>(task));
+}
+
+Task::Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite, double completionTimer)
 {
     this->type = type;
     this->cls = cls;
     this->dir = dir;
     this->infinite = infinite;
+    this->completionTimer = completionTimer;
 }
 
 Task::~Task()
@@ -15,21 +27,14 @@ Task::~Task()
 
 }
 
-void Task::broadcast(Vector2 dest)
+void Task::perform(double deltaTime)
 {
-    this->destination = dest;
+    if (!completed)
+        completionTimer -= deltaTime;
 
-    openTasks.push(std::make_pair(cls, this));
-
-    std::printf("My name is task and I've been broadcasted!!!!\n");
+    if (completionTimer <= 0)
+        completed = true;
 }
-
-/*
-void Task::setPerformer(Actor& performer)
-{
-    this->performer = performer;
-}
-*/
 
 TaskType Task::getType()
 {
@@ -44,6 +49,11 @@ TaskClass Task::getClass()
 TaskDirection Task::getDir()
 {
     return dir;
+}
+
+void Task::setDest(Vector2 v)
+{
+    destination = v;
 }
 
 Vector2 Task::getDest()

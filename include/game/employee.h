@@ -10,11 +10,14 @@
 #include "actor.h"
 #include "task.h"
 
+#include <memory>
+
 class Employee : public Actor
 {
 private:
     int id;
-    Task *task = nullptr;
+
+    std::shared_ptr<Task> task;
 
 public:
     Employee(Renderer& r, int id, Vector2 pos, float speed);

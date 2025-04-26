@@ -9,19 +9,22 @@ TaskEntity::TaskEntity(Renderer &r, std::string path, Vector2 pos, int width, in
 
 void TaskEntity::update(double deltaTime)
 {
+    if (!task)
+        return;
+
     if (!intervalPaused)
         taskBroadcastInterval -= deltaTime;
 
     if (taskBroadcastInterval <= 0)
     {
-        task.broadcast(getTaskDestination());
+        Task::Broadcast(task, getTaskDestination());
         taskBroadcastInterval = _tblResetValue;
 
-        if (!task.isInfinite())
+        if (!task.get()->isInfinite())
             intervalPaused = true;
     }
 
-    if (task.isComplete())
+    if (task.get()->isComplete())
         onTaskComplete();
 }
 

@@ -20,7 +20,27 @@ void Employee::update(double deltaTime, Navmesh& mesh)
     getNextWaypoint();
     moveTowardsWaypoint(deltaTime);
 
-    while (Task::openTasks.size() > 0 && !task)
+    // TODO: check against a list of allowed job types
+    // TODO: check against the type of actor AKA "check the task class"
+    while (!Task::tasks[TSKCLASS_CLEANING]->empty() && !task)
+    {
+        task = std::shared_ptr<Task>(Task::tasks[TSKCLASS_CLEANING]->top());
+        Task::tasks[TSKCLASS_CLEANING]->pop();
+
+        navPoint dest = Navmesh::Vector2ToMeshPoint(task.get()->getDest());
+        choosePath(mesh, dest);
+    }
+
+    if (task && Vector2::GetDistance(pos, task.get()->getDest()) <= 5)
+    {
+        task.get()->perform(deltaTime);
+
+        if (task.get()->isComplete())
+            task.reset();
+    }
+
+    /*
+            while (Task::openTasks.size() > 0 && !task)
     {
         std::pair<TaskClass,Task*> top = Task::openTasks.top();
         Task::openTasks.pop();
@@ -31,6 +51,7 @@ void Employee::update(double deltaTime, Navmesh& mesh)
         task = top.second;
         choosePath(mesh, Navmesh::Vector2ToMeshPoint(task->getDest()));
     }
+    */
 }
 
 void Employee::draw(Renderer& r)

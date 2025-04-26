@@ -48,6 +48,8 @@ public:
     Vector2 operator-=(Vector2 b);
     Vector2 operator*=(Vector2 b);
     Vector2 operator/=(Vector2 b);
+
+    static double GetDistance(Vector2 a, Vector2 b);
 };
 
 #endif // VECTOR_H_INCLUDED

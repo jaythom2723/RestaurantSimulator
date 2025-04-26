@@ -2,20 +2,15 @@
 
 #include "common.h"
 
-#include <ctime>
-
 Navmesh::Navmesh()
 {
-    std::srand(std::time(nullptr));
-    int i,j,r;
+    int i,j;
 
     for(i = 0; i < ROW; i++)
     {
         for(j = 0; j < COL; j++)
         {
-            r = std::rand() % 100;
-
-            grid[i][j] = r <= 25 ? GSPOT_BLOCKED : GSPOT_OPEN;
+            grid[i][j] = GSPOT_OPEN;
         }
     }
 }
@@ -61,10 +56,10 @@ navPoint Navmesh::MeshPointToWorldPoint(navPoint p)
 
 navPoint Navmesh::WorldPointToMeshPoint(navPoint p)
 {
-    return (navPoint){ (p.x / 32), (p.y / 30) };
+    return (navPoint){ (double)(p.x / 32), (double)(p.y / 30) };
 }
 
 navPoint Navmesh::Vector2ToMeshPoint(Vector2 v)
 {
-    return (navPoint){ (v.x / 32), (v.y / 30) };
+    return (navPoint){ (double)(v.x / 32), (double)(v.y / 30) };
 }

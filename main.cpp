@@ -8,6 +8,9 @@
 #include "employee.h"
 #include "taskentity.h"
 #include "puddle.h"
+#include "task.h"
+
+void init();
 
 int main(int argc, char *argv[])
 {
@@ -19,11 +22,6 @@ int main(int argc, char *argv[])
     Display d("Test Window", 800, 600);
     Renderer r(d.getHandle());
 
-    Employee emp(r, 0, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){ 0, 0 }), 125.0f);
-    TexturedEntity wall(r, "res/gfx/wall1.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){10, 15}), 32, 32);
-    TaskEntity t(r, "res/gfx/ticket_printer.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5, 5}), 32, 32, 10);\
-    Puddle puddle(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5,10}));
-
     SDL_Event e;
     bool quit = false;
 
@@ -33,6 +31,14 @@ int main(int argc, char *argv[])
 
     Navmesh mesh;
     mesh.blockCellAt(15, 10);
+    mesh.blockCellAt(10, 5);
+
+    init();
+
+    Employee emp(r, 0, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){ 0, 0 }), 125.0f);
+    TexturedEntity wall(r, "res/gfx/wall1.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){10, 15}), 32, 32);
+    // TaskEntity t(r, "res/gfx/ticket_printer.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5, 5}), 32, 32, 10);
+    Puddle puddle(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5,10}));
 
     while (!quit)
     {
@@ -50,16 +56,14 @@ int main(int argc, char *argv[])
 
         // update
         emp.update(deltaTime, mesh);
-        t.update(deltaTime);
         puddle.update(deltaTime);
 
         // draw
         r.clearScreen();
 
-        emp.draw(r);
         wall.draw(r);
-        t.draw(r);
         puddle.draw(r);
+        emp.draw(r);
 
         r.present();
 
@@ -68,5 +72,16 @@ int main(int argc, char *argv[])
 
     SDL_Quit();
 
+    for (std::pair<TaskClass, std::stack<std::shared_ptr<Task>>*> ls : Task::tasks)
+    {
+        if (ls.second)
+            delete ls.second;
+    }
+
     return 0;
+}
+
+void init()
+{
+    Task::tasks.insert(std::make_pair(TSKCLASS_CLEANING, new std::stack<std::shared_ptr<Task>>()));
 }
