@@ -11,6 +11,7 @@
 #include "task.h"
 
 #include <memory>
+#include <vector>
 
 class Employee : public Actor
 {
@@ -18,6 +19,7 @@ private:
     int id;
 
     std::shared_ptr<Task> task;
+    std::vector<TaskClass> allowedTasks;
 
 public:
     Employee(Renderer& r, int id, Vector2 pos, float speed);

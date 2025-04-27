@@ -70,6 +70,7 @@
 		<Unit filename="include/engine/task.h" />
 		<Unit filename="include/game/employee.h" />
 		<Unit filename="include/game/puddle.h" />
+		<Unit filename="include/game/table.h" />
 		<Unit filename="include/math/vector.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="res/gfx/employee.bmp" />
@@ -92,6 +93,7 @@
 		<Unit filename="src/engine/task.cpp" />
 		<Unit filename="src/game/employee.cpp" />
 		<Unit filename="src/game/puddle.cpp" />
+		<Unit filename="src/game/table.cpp" />
 		<Unit filename="src/math/vector.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

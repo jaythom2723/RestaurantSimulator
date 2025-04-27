@@ -9,6 +9,7 @@
 #include "taskentity.h"
 #include "puddle.h"
 #include "task.h"
+#include "table.h"
 
 #include "engine.h"
 
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     EngineState::SpawnEntity<TexturedEntity>(r, "res/gfx/wall1.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {10, 15}), 32, 32);
     EngineState::SpawnEntity<Employee>(r, 0, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {0,0}), 125.0f);
     EngineState::SpawnEntity<Employee>(r, 1, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {1,0}), 125.0f);
+    EngineState::SpawnEntity<Table>(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {3,0}));
 
     while (!quit)
     {

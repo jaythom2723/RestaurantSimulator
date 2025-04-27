@@ -4,8 +4,8 @@
 #include "common.h"
 #include "actor.h"
 
-#include <map>
 #include <memory>
+#include <vector>
 
 /*
     Task Type determines what action to perform
@@ -85,11 +85,8 @@ public:
     void setDest(Vector2 v);
     Vector2 getDest();
 
-    void complete();
     bool isComplete();
     bool isInfinite();
-
-    //const Actor& getPerformer();
 };
 
 #endif // TASK_H_INCLUDED

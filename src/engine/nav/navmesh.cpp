@@ -51,7 +51,7 @@ void Navmesh::blockCellAt(int row, int col)
 
 navPoint Navmesh::MeshPointToWorldPoint(navPoint p)
 {
-    return (navPoint){ 16 + (32 * p.x), 15 + (30 * p.y) };
+    return (navPoint){ (double)(16 + (32 * p.x)), (double)(15 + (30 * p.y)) };
 }
 
 navPoint Navmesh::WorldPointToMeshPoint(navPoint p)

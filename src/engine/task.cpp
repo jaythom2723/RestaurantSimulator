@@ -56,11 +56,6 @@ Vector2 Task::getDest()
     return destination;
 }
 
-void Task::complete()
-{
-    completed = true;
-}
-
 bool Task::isComplete()
 {
     return completed;
@@ -70,10 +65,3 @@ bool Task::isInfinite()
 {
     return infinite;
 }
-
-/*
-const Actor& Task::getPerformer()
-{
-    return performer;
-}
-*/

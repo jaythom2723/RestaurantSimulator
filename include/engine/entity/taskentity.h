@@ -11,14 +11,13 @@ class TaskEntity : public TexturedEntity
 protected:
     float taskBroadcastInterval;
     float _tblResetValue;
-
     bool intervalPaused = false;
 
-    virtual void onTaskComplete() {}
-    virtual Vector2 getTaskDestination() { return Vector2(0,0); }
+    virtual void onTaskComplete();
+    virtual Vector2 getTaskDestination() {}
 
-    // the task that gets generated for other entities to take
-    std::shared_ptr<Task> task = nullptr;
+    std::vector<std::shared_ptr<Task>> taskStages;
+    int curStage = 0;
 
 public:
     TaskEntity(Renderer &r, std::string path, Vector2 pos, int width, int height, float tbl);

@@ -2,6 +2,14 @@
 
 #include "engine.h"
 
+void TaskEntity::onTaskComplete()
+{
+    curStage++;
+
+    if (curStage > taskStages.size())
+        intervalPaused = true;
+}
+
 TaskEntity::TaskEntity(Renderer &r, std::string path, Vector2 pos, int width, int height, float tbl)
     : TexturedEntity(r, path, pos, width, height)
 {
@@ -11,22 +19,25 @@ TaskEntity::TaskEntity(Renderer &r, std::string path, Vector2 pos, int width, in
 
 void TaskEntity::update(double deltaTime)
 {
-    if (!task)
+    if (!taskStages[curStage])
         return;
 
     if (!intervalPaused)
         taskBroadcastInterval -= deltaTime;
 
+    if (curStage < taskStages.size() && (intervalPaused && taskStages[curStage].get()->isComplete()))
+        intervalPaused = false;
+
     if (taskBroadcastInterval <= 0)
     {
-        Task::Broadcast(task, getTaskDestination());
+        Task::Broadcast(taskStages[curStage], getTaskDestination());
         taskBroadcastInterval = _tblResetValue;
 
-        if (!task.get()->isInfinite())
+        if (!taskStages[curStage].get()->isComplete())
             intervalPaused = true;
     }
 
-    if (task.get()->isComplete())
+    if (taskStages[curStage].get()->isComplete())
         onTaskComplete();
 }
 

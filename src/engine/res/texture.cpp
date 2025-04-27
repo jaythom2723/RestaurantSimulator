@@ -8,9 +8,10 @@ Texture::Texture(Renderer &r, std::string path)
 
     SDL_Surface *tmp = SDL_LoadBMP(path.c_str());
     if (pushErrorCheck(ERRTYPE_FAIL_LOAD_IMAGE, tmp == nullptr))
+    {
         std::printf("Could not find texture, '%s'\n", path.c_str());
-    else
-        std::printf("Found texture, '%s'\n", path.c_str());
+        std::exit(-2);
+    }
 
     tex = SDL_CreateTextureFromSurface(r.getHandle(), tmp);
 

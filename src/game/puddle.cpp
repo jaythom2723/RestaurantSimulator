@@ -7,7 +7,7 @@ Puddle::Puddle(Renderer& r, Vector2 pos)
 {
     this->pos = calcOrigin();
 
-    task = std::make_shared<Task>(TSKTYPE_CLEAN, TSKCLASS_CLEANING, TSKDIR_LOCATIVE, false, 2);
+    taskStages.push_back(std::make_shared<Task>(TSKTYPE_CLEAN, TSKCLASS_CLEANING, TSKDIR_LOCATIVE, false, 2));
 }
 
 void Puddle::update(double deltaTime)
@@ -22,10 +22,12 @@ void Puddle::draw(Renderer& r)
 
 void Puddle::onTaskComplete()
 {
+    TaskEntity::onTaskComplete();
+
     EngineState::DestroyEntity(this);
 }
 
 Vector2 Puddle::getTaskDestination()
 {
-    return pos; // literally just our position
+    return calcOrigin(); // literally just our position
 }
