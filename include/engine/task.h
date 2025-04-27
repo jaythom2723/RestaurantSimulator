@@ -69,7 +69,6 @@ private:
 public:
     static const Task NULLTASK;
 
-    static std::map<TaskClass, std::stack<std::shared_ptr<Task>>*> tasks;
     // broadcast the task to be located in the game world at (x,y)
     static void Broadcast(std::shared_ptr<Task> task, Vector2 dest);
 

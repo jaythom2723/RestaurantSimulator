@@ -23,7 +23,7 @@ public:
     Employee(Renderer& r, int id, Vector2 pos, float speed);
     ~Employee();
 
-    void update(double deltaTime, Navmesh& mesh);
+    void update(double deltaTime);
     void draw(Renderer& r);
 
     int getId();

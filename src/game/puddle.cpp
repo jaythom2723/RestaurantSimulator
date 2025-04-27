@@ -1,5 +1,7 @@
 #include "puddle.h"
 
+#include "engine.h"
+
 Puddle::Puddle(Renderer& r, Vector2 pos)
     : TaskEntity(r, "res/gfx/puddle.bmp", pos, 32, 32, 2)
 {
@@ -20,9 +22,7 @@ void Puddle::draw(Renderer& r)
 
 void Puddle::onTaskComplete()
 {
-    // TODO: kill self
-
-    std::printf("Puddle task is complete!!!!!\n");
+    EngineState::DestroyEntity(this);
 }
 
 Vector2 Puddle::getTaskDestination()

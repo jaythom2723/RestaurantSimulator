@@ -56,6 +56,7 @@
 			<Add after="XCOPY $(#sdl2)\bin\*.dll $(TARGET_OUTPUT_DIR) /D /Y" />
 		</ExtraCommands>
 		<Unit filename="include/common.h" />
+		<Unit filename="include/engine.h" />
 		<Unit filename="include/engine/dbg.h" />
 		<Unit filename="include/engine/display.h" />
 		<Unit filename="include/engine/entity/actor.h" />
@@ -77,6 +78,7 @@
 		<Unit filename="res/gfx/table.bmp" />
 		<Unit filename="res/gfx/ticket_printer.bmp" />
 		<Unit filename="res/gfx/wall1.bmp" />
+		<Unit filename="src/engine.cpp" />
 		<Unit filename="src/engine/dbg.cpp" />
 		<Unit filename="src/engine/display.cpp" />
 		<Unit filename="src/engine/entity/actor.cpp" />

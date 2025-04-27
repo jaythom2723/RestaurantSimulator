@@ -5,7 +5,7 @@
 
 #include "taskentity.h"
 
-class Puddle : TaskEntity
+class Puddle : public TaskEntity
 {
 protected:
     void onTaskComplete();

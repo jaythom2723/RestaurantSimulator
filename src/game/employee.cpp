@@ -3,6 +3,7 @@
 #include "common.h"
 #include "dbg.h"
 #include "aStar.h"
+#include "engine.h"
 
 Employee::Employee(Renderer& r, int id, Vector2 pos, float speed)
     : Actor(r, "res/gfx/employee.bmp", pos, 32, 32, speed)
@@ -15,20 +16,20 @@ Employee::~Employee()
 
 }
 
-void Employee::update(double deltaTime, Navmesh& mesh)
+void Employee::update(double deltaTime)
 {
     getNextWaypoint();
     moveTowardsWaypoint(deltaTime);
 
     // TODO: check against a list of allowed job types
     // TODO: check against the type of actor AKA "check the task class"
-    while (!Task::tasks[TSKCLASS_CLEANING]->empty() && !task)
+    while (!EngineState::tasks[TSKCLASS_CLEANING]->empty() && !task)
     {
-        task = std::shared_ptr<Task>(Task::tasks[TSKCLASS_CLEANING]->top());
-        Task::tasks[TSKCLASS_CLEANING]->pop();
+        task = std::shared_ptr<Task>(EngineState::tasks[TSKCLASS_CLEANING]->top());
+        EngineState::tasks[TSKCLASS_CLEANING]->pop();
 
         navPoint dest = Navmesh::Vector2ToMeshPoint(task.get()->getDest());
-        choosePath(mesh, dest);
+        choosePath(EngineState::mesh, dest);
     }
 
     if (task && Vector2::GetDistance(pos, task.get()->getDest()) <= 5)
@@ -38,20 +39,6 @@ void Employee::update(double deltaTime, Navmesh& mesh)
         if (task.get()->isComplete())
             task.reset();
     }
-
-    /*
-            while (Task::openTasks.size() > 0 && !task)
-    {
-        std::pair<TaskClass,Task*> top = Task::openTasks.top();
-        Task::openTasks.pop();
-
-        // TODO: Check employee and task class against each other
-
-        // for now, just do any task that appears
-        task = top.second;
-        choosePath(mesh, Navmesh::Vector2ToMeshPoint(task->getDest()));
-    }
-    */
 }
 
 void Employee::draw(Renderer& r)

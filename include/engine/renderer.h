@@ -9,6 +9,7 @@ private:
     SDL_Renderer *handle;
 
 public:
+    Renderer() {}
     Renderer(SDL_Window *hdl);
     ~Renderer();
 

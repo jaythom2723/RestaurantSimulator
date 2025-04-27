@@ -1,16 +1,11 @@
 #include "task.h"
 
-std::map<TaskClass, std::stack<std::shared_ptr<Task>>*> Task::tasks;
+#include "engine.h"
 
 void Task::Broadcast(std::shared_ptr<Task> task, Vector2 dest)
 {
-    if (!tasks[task.get()->getClass()])
-    {
-        tasks.insert(std::make_pair(task.get()->getClass(), new std::stack<std::shared_ptr<Task>>()));
-    }
-
     task.get()->setDest(dest);
-    tasks[task.get()->getClass()]->push(std::shared_ptr<Task>(task));
+    EngineState::tasks[task.get()->getClass()]->push(std::shared_ptr<Task>(task));
 }
 
 Task::Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite, double completionTimer)

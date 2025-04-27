@@ -1,5 +1,7 @@
 #include "taskentity.h"
 
+#include "engine.h"
+
 TaskEntity::TaskEntity(Renderer &r, std::string path, Vector2 pos, int width, int height, float tbl)
     : TexturedEntity(r, path, pos, width, height)
 {

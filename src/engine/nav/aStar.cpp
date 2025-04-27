@@ -148,7 +148,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i - 1][j].parent_i = i;
                 cellDetails[i - 1][j].parent_j = j;
-                printf("Destination cell is found\n");
                 (*path) = tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
@@ -180,7 +179,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i + 1][j].parent_i = i;
                 cellDetails[i + 1][j].parent_j = j;
-                printf("Destination cell is found\n");
                 (*path) = tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
@@ -211,7 +209,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i][j + 1].parent_i = i;
                 cellDetails[i][j + 1].parent_j = j;
-                printf("Destination cell found\n");
                 (*path) = tracePath(cellDetails, dest);
                 foundDest = true;
                 return;
@@ -242,7 +239,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i][j - 1].parent_i = i;
                 cellDetails[i][j - 1].parent_j = j;
-                printf("Destination cell is found\n");
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
@@ -273,7 +269,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i - 1][j + 1].parent_i = i;
                 cellDetails[i - 1][j + 1].parent_j = j;
-                printf("Destination cell found\n");
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
@@ -304,7 +299,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i - 1][j - 1].parent_i = i;
                 cellDetails[i - 1][j - 1].parent_j = j;
-                printf("Destination cell is found\n");
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
@@ -335,7 +329,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i+1][j+1].parent_i = i;
                 cellDetails[i+1][j+1].parent_j = j;
-                printf("Destination cell found\n");
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;
@@ -366,7 +359,6 @@ void aStarSearch(Navmesh& mesh, navPoint src, navPoint dest, stack<navPoint> *pa
             {
                 cellDetails[i+1][j-1].parent_i = i;
                 cellDetails[i+1][j-1].parent_j = j;
-                printf("Destination cell found\n");
                 (*path) = tracePath(cellDetails, dest);;
                 foundDest = true;
                 return;

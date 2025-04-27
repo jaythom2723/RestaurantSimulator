@@ -12,6 +12,7 @@ private:
     SDL_Surface *surface;
 
 public:
+    Display() {}
     Display(std::string title, int width, int height);
     ~Display();
 

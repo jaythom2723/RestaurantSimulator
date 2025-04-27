@@ -15,7 +15,7 @@ protected:
     bool intervalPaused = false;
 
     virtual void onTaskComplete() {}
-    virtual Vector2 getTaskDestination() {}
+    virtual Vector2 getTaskDestination() { return Vector2(0,0); }
 
     // the task that gets generated for other entities to take
     std::shared_ptr<Task> task = nullptr;
