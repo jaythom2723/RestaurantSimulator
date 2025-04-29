@@ -11,6 +11,7 @@ class Entity
 protected:
     Vector2 pos;
 
+    int id;
     int width, height;
 
     Vector2 calcOrigin();
@@ -34,6 +35,8 @@ public:
     int getY();
     int getWidth();
     int getHeight();
+
+    const int getId();
 };
 
 #endif // ENTITY_H_INCLUDED

@@ -12,7 +12,7 @@ protected:
     Vector2 getTaskDestination();
 
 public:
-    Puddle(Renderer &r, Vector2 pos);
+    Puddle(Renderer &r, navPoint pos);
     virtual ~Puddle() {}
 
     void update(double deltaTime);

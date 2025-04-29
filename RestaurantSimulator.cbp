@@ -71,7 +71,9 @@
 		<Unit filename="include/game/employee.h" />
 		<Unit filename="include/game/puddle.h" />
 		<Unit filename="include/game/table.h" />
+		<Unit filename="include/game/ticketprinter.h" />
 		<Unit filename="include/math/vector.h" />
+		<Unit filename="include/utility.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="res/gfx/employee.bmp" />
 		<Unit filename="res/gfx/puddle.bmp" />
@@ -94,6 +96,7 @@
 		<Unit filename="src/game/employee.cpp" />
 		<Unit filename="src/game/puddle.cpp" />
 		<Unit filename="src/game/table.cpp" />
+		<Unit filename="src/game/ticketprinter.cpp" />
 		<Unit filename="src/math/vector.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />

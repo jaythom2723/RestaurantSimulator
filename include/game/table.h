@@ -12,7 +12,7 @@ protected:
     Vector2 getTaskDestination();
 
 public:
-    Table(Renderer& r, Vector2 pos);
+    Table(Renderer& r, navPoint pos);
     virtual ~Table() {}
 
     void update(double deltaTime);

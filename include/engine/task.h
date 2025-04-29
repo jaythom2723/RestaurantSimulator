@@ -5,7 +5,21 @@
 #include "actor.h"
 
 #include <memory>
+#include <cstdint>
 #include <vector>
+
+/*
+    Broadcast masks determine what tasks can force entities to broadcast tasks
+    (at their current stage)
+*/
+typedef enum {
+    TSKMASK_NULL                        = 0x00, // 0b0000 0000
+    TSKMASK_TICKET_PRINTER              = 0x01, // 0b0000 0001
+    TSKMASK_TABLE                       = 0x02, // 0b0000 0010
+    TSKMASK_STOOL                       = 0x04, // 0b0000 0100
+    TSKMASK_OVEN                        = 0x08, // 0b0000 1000
+    TSKMASK_SERVING_TABLE               = 0x10, // 0b0001 0000
+} TaskBroadcastMask;
 
 /*
     Task Type determines what action to perform
@@ -66,6 +80,9 @@ private:
     bool infinite = false; // infinite task generation!!!
 
     double completionTimer;
+    double _timerReset;
+
+    TaskBroadcastMask taskBroadcastMask;
 public:
     static const Task NULLTASK;
 
@@ -73,7 +90,7 @@ public:
     static void Broadcast(std::shared_ptr<Task> task, Vector2 dest);
 
     Task() {}
-    Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite, double completionTimer);
+    Task(TaskType type, TaskClass cls, TaskDirection dir, bool infinite, double completionTimer, TaskBroadcastMask mask);
     ~Task();
 
     void perform(double deltaTime); // used by the employee
@@ -85,6 +102,9 @@ public:
     void setDest(Vector2 v);
     Vector2 getDest();
 
+    const TaskBroadcastMask& getBroadcastMask();
+
+    void setComplete(bool value);
     bool isComplete();
     bool isInfinite();
 };

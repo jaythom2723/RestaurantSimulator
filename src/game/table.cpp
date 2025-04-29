@@ -4,6 +4,16 @@
 #include "engine.h"
 #include <memory>
 
+Table::Table(Renderer& r, navPoint pos)
+    : TaskEntity(r, "res/gfx/table.bmp", pos, 32, 32, 2, TSKMASK_TABLE)
+{
+    taskStages.push_back(std::make_shared<Task>(TSKTYPE_GREET, TSKCLASS_SERVING, TSKDIR_SOUTH, false, 2, TSKMASK_TICKET_PRINTER));
+    taskStages.push_back(std::make_shared<Task>(TSKTYPE_SERVE_FOOD, TSKCLASS_SERVING, TSKDIR_SOUTH, false, 2, TSKMASK_TABLE));
+    taskStages.push_back(std::make_shared<Task>(TSKTYPE_CLEAN, TSKCLASS_BUSSING, TSKDIR_SOUTH, false, 2, TSKMASK_NULL));
+
+    this->pos = calcOrigin();
+}
+
 void Table::onTaskComplete()
 {
     TaskEntity::onTaskComplete();
@@ -11,18 +21,10 @@ void Table::onTaskComplete()
 
 Vector2 Table::getTaskDestination()
 {
-    navPoint tmp = Navmesh::MeshPointToWorldPoint((navPoint) {4, 2});
-    return Vector2(tmp.x, tmp.y);
-}
-
-Table::Table(Renderer& r, Vector2 pos)
-    : TaskEntity(r, "res/gfx/table.bmp", pos, 32, 32, 2)
-{
-    taskStages.push_back(std::make_shared<Task>(TSKTYPE_GREET, TSKCLASS_SERVING, TSKDIR_SOUTH, false, 2));
-    taskStages.push_back(std::make_shared<Task>(TSKTYPE_SERVE_FOOD, TSKCLASS_SERVING, TSKDIR_SOUTH, false, 2));
-    taskStages.push_back(std::make_shared<Task>(TSKTYPE_CLEAN, TSKCLASS_BUSSING, TSKDIR_SOUTH, false, 2));
-
-    this->pos = calcOrigin();
+    Vector2 destPos = (Vector2) Navmesh::MeshPointToWorldPoint(meshPos);
+    destPos.y += 64;
+    destPos.x += width / 2;
+    return destPos;
 }
 
 void Table::update(double deltaTime)

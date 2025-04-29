@@ -10,6 +10,7 @@
 #include "puddle.h"
 #include "task.h"
 #include "table.h"
+#include "ticketprinter.h"
 
 #include "engine.h"
 
@@ -40,12 +41,9 @@ int main(int argc, char *argv[])
     float last = 0.0f;
     double deltaTime = 0.0f;
 
-    EngineState::SpawnEntity<Puddle>(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5, 10}));
-    EngineState::SpawnEntity<Puddle>(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint){5, 5}));
-    EngineState::SpawnEntity<TexturedEntity>(r, "res/gfx/wall1.bmp", (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {10, 15}), 32, 32);
-    EngineState::SpawnEntity<Employee>(r, 0, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {0,0}), 125.0f);
-    EngineState::SpawnEntity<Employee>(r, 1, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {1,0}), 125.0f);
-    EngineState::SpawnEntity<Table>(r, (Vector2) Navmesh::MeshPointToWorldPoint((navPoint) {3,0}));
+    EngineState::SpawnEntity<Employee>(r, 0, (Vector2) Navmesh::MeshPointToWorldPoint({0, 0}), 125.0f);
+    EngineState::SpawnEntity<Table>(r, (navPoint){1, 0});
+    EngineState::SpawnEntity<TicketPrinter>(r, (navPoint){2, 0});
 
     while (!quit)
     {
@@ -94,19 +92,14 @@ void close()
     delete EngineState::tasks[TSKCLASS_MANAGING];
     delete EngineState::tasks[TSKCLASS_SERVING];
 
-    for (auto ent : EngineState::entities)
-    {
-        delete ent;
-    }
-
     SDL_Quit();
 }
 
 void update(double deltaTime)
 {
-    for (auto ent : EngineState::entities)
+    for (int i = 0; i < EngineState::entities.size(); i++)
     {
-        ent->update(deltaTime);
+        EngineState::entities[i]->update(deltaTime);
     }
 }
 
@@ -114,9 +107,9 @@ void draw(Renderer& r)
 {
     r.clearScreen();
 
-    for (auto ent : EngineState::entities)
+    for (int i = 0; i < EngineState::entities.size(); i++)
     {
-        ent->draw(r);
+        EngineState::entities[i]->draw(r);
     }
 
     r.present();

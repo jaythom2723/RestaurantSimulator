@@ -16,19 +16,19 @@
 class Employee : public Actor
 {
 private:
-    int id;
+    int empId;
 
     std::shared_ptr<Task> task;
     std::vector<TaskClass> allowedTasks;
 
 public:
-    Employee(Renderer& r, int id, Vector2 pos, float speed);
+    Employee(Renderer& r, int empId, Vector2 pos, float speed);
     ~Employee();
 
     void update(double deltaTime);
     void draw(Renderer& r);
 
-    int getId();
+    int getEmpId();
     const std::stack<navPoint>& getPath();
 };
 

@@ -5,10 +5,10 @@
 #include "aStar.h"
 #include "engine.h"
 
-Employee::Employee(Renderer& r, int id, Vector2 pos, float speed)
+Employee::Employee(Renderer& r, int empId, Vector2 pos, float speed)
     : Actor(r, "res/gfx/employee.bmp", pos, 32, 32, speed)
 {
-    this->id = id;
+    this->empId = empId;
 
     allowedTasks = {
         TSKCLASS_BUSSING,
@@ -64,9 +64,9 @@ void Employee::draw(Renderer& r)
     r.texCopy(texture->getTexture(), nullptr, &rect);
 }
 
-int Employee::getId()
+int Employee::getEmpId()
 {
-    return id;
+    return empId;
 }
 
 const std::stack<navPoint>& Employee::getPath()

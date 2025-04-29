@@ -1,6 +1,6 @@
 #include "engine.h"
 
-std::vector<Entity*> EngineState::entities;
+std::vector<std::unique_ptr<Entity>> EngineState::entities;
 std::map<TaskClass, std::stack<std::shared_ptr<Task>>*> EngineState::tasks;
 Navmesh EngineState::mesh;
 

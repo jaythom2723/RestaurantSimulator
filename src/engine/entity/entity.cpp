@@ -1,5 +1,7 @@
 #include "entity.h"
 
+#include "engine.h"
+
 Vector2 Entity::calcOrigin()
 {
     return Vector2(pos.x + (width / 2), pos.y + (height / 2));
@@ -7,6 +9,8 @@ Vector2 Entity::calcOrigin()
 
 Entity::Entity(Vector2 pos, int width, int height)
 {
+    id = EngineState::entities.size();
+
     this->pos = pos;
     this->width = width;
     this->height = height;
@@ -67,4 +71,9 @@ int Entity::getWidth()
 int Entity::getHeight()
 {
     return height;
+}
+
+const int Entity::getId()
+{
+    return id;
 }
